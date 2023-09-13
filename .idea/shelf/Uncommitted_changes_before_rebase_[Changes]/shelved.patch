@@ -1,0 +1,1614 @@
+Index: .idea/runConfigurations.xml
+===================================================================
+diff --git a/.idea/runConfigurations.xml b/.idea/runConfigurations.xml
+deleted file mode 100644
+--- a/.idea/runConfigurations.xml	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ /dev/null	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
+@@ -1,12 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="RunConfigurationProducerService">
+-    <option name="ignoredProducers">
+-      <set>
+-        <option value="org.jetbrains.plugins.gradle.execution.test.runner.AllInPackageGradleConfigurationProducer" />
+-        <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestClassGradleConfigurationProducer" />
+-        <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestMethodGradleConfigurationProducer" />
+-      </set>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/activity/ShareViewActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2.activity;\r\n\r\nimport android.animation.ObjectAnimator;\r\nimport android.content.res.ColorStateList;\r\nimport android.os.Bundle;\r\nimport android.view.MotionEvent;\r\nimport android.view.View;\r\nimport android.view.animation.AccelerateInterpolator;\r\nimport android.view.animation.AlphaAnimation;\r\nimport android.view.animation.Animation;\r\nimport android.view.animation.DecelerateInterpolator;\r\nimport android.widget.RelativeLayout;\r\nimport android.widget.TextView;\r\n\r\nimport com.eajy.materialdesign2.R;\r\nimport com.google.android.material.card.MaterialCardView;\r\n\r\nimport androidx.appcompat.widget.Toolbar;\r\n\r\n\r\npublic class ShareViewActivity extends BaseActivity {\r\n\r\n    private TextView tv_share_view_tip;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_share_view);\r\n        Toolbar toolbar = findViewById(R.id.toolbar_share_view);\r\n        toolbar.setSubtitle(\"Shared Element Transitions\");\r\n        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);\r\n        setToolbar(toolbar);\r\n        initView();\r\n    }\r\n\r\n    private void initView() {\r\n        MaterialCardView card_share_view = findViewById(R.id.card_share_view);\r\n        RelativeLayout rela_round_big = findViewById(R.id.rela_round_big);\r\n        tv_share_view_tip = findViewById(R.id.tv_share_view_tip);\r\n\r\n        if (getIntent() != null) {\r\n            int color = getIntent().getIntExtra(\"color\", 0);\r\n            if (color == 1) {\r\n                rela_round_big.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.google_blue)));\r\n            } else if (color == 2) {\r\n                rela_round_big.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.google_green)));\r\n            } else if (color == 3) {\r\n                rela_round_big.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.google_yellow)));\r\n            } else if (color == 4) {\r\n                rela_round_big.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.google_red)));\r\n            } else {\r\n                rela_round_big.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.gray)));\r\n            }\r\n        }\r\n\r\n        AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);\r\n        alphaAnimation.setDuration(1500);\r\n        alphaAnimation.setStartOffset(1000);\r\n        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {\r\n            @Override\r\n            public void onAnimationStart(Animation animation) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onAnimationEnd(Animation animation) {\r\n                tv_share_view_tip.setVisibility(View.GONE);\r\n            }\r\n\r\n            @Override\r\n            public void onAnimationRepeat(Animation animation) {\r\n\r\n            }\r\n        });\r\n        tv_share_view_tip.startAnimation(alphaAnimation);\r\n\r\n        ObjectAnimator downAnim = ObjectAnimator.ofFloat(card_share_view, \"translationZ\", 24);\r\n        downAnim.setDuration(200);\r\n        downAnim.setInterpolator(new AccelerateInterpolator());\r\n        downAnim.start();\r\n        card_share_view.setOnTouchListener(touchListener);\r\n    }\r\n\r\n    private View.OnTouchListener touchListener = new View.OnTouchListener() {\r\n        @Override\r\n        public boolean onTouch(View view, MotionEvent motionEvent) {\r\n            switch (motionEvent.getAction()) {\r\n                case MotionEvent.ACTION_DOWN:\r\n                    ObjectAnimator upAnim = ObjectAnimator.ofFloat(view, \"translationZ\", 0);\r\n                    upAnim.setDuration(200);\r\n                    upAnim.setInterpolator(new DecelerateInterpolator());\r\n                    upAnim.start();\r\n                    break;\r\n                case MotionEvent.ACTION_UP:\r\n                case MotionEvent.ACTION_CANCEL:\r\n                    ObjectAnimator downAnim = ObjectAnimator.ofFloat(view, \"translationZ\", 24);\r\n                    downAnim.setDuration(200);\r\n                    downAnim.setInterpolator(new AccelerateInterpolator());\r\n                    downAnim.start();\r\n                    break;\r\n            }\r\n            return false;\r\n        }\r\n    };\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/activity/ShareViewActivity.java b/app/src/main/java/com/eajy/materialdesign2/activity/ShareViewActivity.java
+--- a/app/src/main/java/com/eajy/materialdesign2/activity/ShareViewActivity.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/activity/ShareViewActivity.java	(date 1694447896408)
+@@ -81,7 +81,7 @@
+         card_share_view.setOnTouchListener(touchListener);
+     }
+ 
+-    private View.OnTouchListener touchListener = new View.OnTouchListener() {
++    private final View.OnTouchListener touchListener = new View.OnTouchListener() {
+         @Override
+         public boolean onTouch(View view, MotionEvent motionEvent) {
+             switch (motionEvent.getAction()) {
+Index: app/src/main/java/com/eajy/materialdesign2/recycler_viewFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/recycler_viewFragment.java b/app/src/main/java/com/eajy/materialdesign2/recycler_viewFragment.java
+new file mode 100644
+--- /dev/null	(date 1694550945681)
++++ b/app/src/main/java/com/eajy/materialdesign2/recycler_viewFragment.java	(date 1694550945681)
+@@ -0,0 +1,64 @@
++package com.eajy.materialdesign2;
++
++import android.os.Bundle;
++
++import androidx.fragment.app.Fragment;
++
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++
++/**
++ * A simple {@link Fragment} subclass.
++ * Use the {@link recycler_viewFragment#newInstance} factory method to
++ * create an instance of this fragment.
++ */
++public class recycler_viewFragment extends Fragment {
++
++    // TODO: Rename parameter arguments, choose names that match
++    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++    private static final String ARG_PARAM1 = "param1";
++    private static final String ARG_PARAM2 = "param2";
++
++    // TODO: Rename and change types of parameters
++    private String mParam1;
++    private String mParam2;
++
++    public recycler_viewFragment() {
++        // Required empty public constructor
++    }
++
++    /**
++     * Use this factory method to create a new instance of
++     * this fragment using the provided parameters.
++     *
++     * @param param1 Parameter 1.
++     * @param param2 Parameter 2.
++     * @return A new instance of fragment recycler_viewFragment.
++     */
++    // TODO: Rename and change types and number of parameters. j
++    public static recycler_viewFragment newInstance(String param1, String param2) {
++        recycler_viewFragment fragment = new recycler_viewFragment();
++        Bundle args = new Bundle();
++        args.putString(ARG_PARAM1, param1);
++        args.putString(ARG_PARAM2, param2);
++        fragment.setArguments(args);
++        return fragment;
++    }
++
++    @Override
++    public void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        if (getArguments() != null) {
++            mParam1 = getArguments().getString(ARG_PARAM1);
++            mParam2 = getArguments().getString(ARG_PARAM2);
++        }
++    }
++
++    @Override
++    public View onCreateView(LayoutInflater inflater, ViewGroup container,
++                             Bundle savedInstanceState) {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_recycler_view, container, false);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/MyAppsFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/MyAppsFragment.kt b/app/src/main/java/com/eajy/materialdesign2/MyAppsFragment.kt
+new file mode 100644
+--- /dev/null	(date 1693980470057)
++++ b/app/src/main/java/com/eajy/materialdesign2/MyAppsFragment.kt	(date 1693980470057)
+@@ -0,0 +1,57 @@
++package com.eajy.materialdesign2
++
++import android.os.Bundle
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++
++// TODO: Rename parameter arguments, choose names that match
++// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++private const val ARG_PARAM1 = "param1"
++private const val ARG_PARAM2 = "param2"
++
++/**
++ * A simple [Fragment] subclass.
++ * Use the [MyAppsFragment.newInstance] factory method to
++ * create an instance of this fragment.
++ */
++class MyAppsFragment : Fragment() {
++    // TODO: Rename and change types of parameters
++    private var param1: String? = null
++    private var param2: String? = null
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        arguments?.let {
++            param1 = it.getString(ARG_PARAM1)
++            param2 = it.getString(ARG_PARAM2)
++        }
++    }
++
++    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
++                              savedInstanceState: Bundle?): View? {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_my_apps, container, false)
++    }
++
++    companion object {
++        /**
++         * Use this factory method to create a new instance of
++         * this fragment using the provided parameters.
++         *
++         * @param param1 Parameter 1.
++         * @param param2 Parameter 2.
++         * @return A new instance of fragment MyAppsFragment.
++         */
++        // TODO: Rename and change types and number of parameters
++        @JvmStatic
++        fun newInstance(param1: String, param2: String) =
++                MyAppsFragment().apply {
++                    arguments = Bundle().apply {
++                        putString(ARG_PARAM1, param1)
++                        putString(ARG_PARAM2, param2)
++                    }
++                }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/activity/BottomNavigationActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2.activity;\r\n\r\nimport android.animation.ArgbEvaluator;\r\nimport android.os.Bundle;\r\nimport android.view.MenuItem;\r\nimport android.view.View;\r\n\r\nimport com.eajy.materialdesign2.R;\r\nimport com.eajy.materialdesign2.adapter.ViewPagerAdapter;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.widget.Toolbar;\r\nimport androidx.viewpager.widget.ViewPager;\r\n\r\npublic class BottomNavigationActivity extends BaseActivity {\r\n\r\n    private ViewPager viewPager;\r\n    private BottomNavigationView navigation;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_bottom_navigation);\r\n        initView();\r\n    }\r\n\r\n    private void initView() {\r\n        setStatusBarColor(getResources().getColor(R.color.transparent));\r\n        Toolbar toolbar = findViewById(R.id.toolbar);\r\n        setToolbar(toolbar);\r\n\r\n        View view1 = getLayoutInflater().inflate(R.layout.item_view_pager, null);\r\n        View view2 = getLayoutInflater().inflate(R.layout.item_view_pager, null);\r\n        View view3 = getLayoutInflater().inflate(R.layout.item_view_pager, null);\r\n        View view4 = getLayoutInflater().inflate(R.layout.item_view_pager, null);\r\n        List<View> viewList = new ArrayList<>();\r\n        viewList.add(view1);\r\n        viewList.add(view2);\r\n        viewList.add(view3);\r\n        viewList.add(view4);\r\n        viewPager = findViewById(R.id.view_pager_bottom_navigation);\r\n        ViewPagerAdapter adapter = new ViewPagerAdapter(viewList);\r\n        viewPager.setAdapter(adapter);\r\n        viewPager.addOnPageChangeListener(pageChangeListener);\r\n\r\n        navigation = findViewById(R.id.bottom_navigation);\r\n        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);\r\n    }\r\n\r\n    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {\r\n        @Override\r\n        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {\r\n            ArgbEvaluator evaluator = new ArgbEvaluator();\r\n            int evaluate = getResources().getColor(R.color.app_blue);\r\n            if (position == 0) {\r\n                evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.app_blue), getResources().getColor(R.color.app_green));\r\n            } else if (position == 1) {\r\n                evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.app_green), getResources().getColor(R.color.app_yellow));\r\n            } else if (position == 2) {\r\n                evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.app_yellow), getResources().getColor(R.color.app_red));\r\n            } else {\r\n                evaluate = getResources().getColor(R.color.app_red);\r\n            }\r\n            ((View) viewPager.getParent()).setBackgroundColor(evaluate);\r\n        }\r\n\r\n        @Override\r\n        public void onPageSelected(int position) {\r\n            switch (position) {\r\n                case 0:\r\n                    navigation.setSelectedItemId(R.id.bottom_navigation_blue);\r\n                    break;\r\n                case 1:\r\n                    navigation.setSelectedItemId(R.id.bottom_navigation_green);\r\n                    break;\r\n                case 2:\r\n                    navigation.setSelectedItemId(R.id.bottom_navigation_yellow);\r\n                    break;\r\n                case 3:\r\n                    navigation.setSelectedItemId(R.id.bottom_navigation_red);\r\n                    break;\r\n            }\r\n        }\r\n\r\n        @Override\r\n        public void onPageScrollStateChanged(int state) {\r\n\r\n        }\r\n    };\r\n\r\n    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {\r\n        @Override\r\n        public boolean onNavigationItemSelected(@NonNull MenuItem item) {\r\n            switch (item.getItemId()) {\r\n                case R.id.bottom_navigation_blue:\r\n                    viewPager.setCurrentItem(0);\r\n                    return true;\r\n                case R.id.bottom_navigation_green:\r\n                    viewPager.setCurrentItem(1);\r\n                    return true;\r\n                case R.id.bottom_navigation_yellow:\r\n                    viewPager.setCurrentItem(2);\r\n                    return true;\r\n                case R.id.bottom_navigation_red:\r\n                    viewPager.setCurrentItem(3);\r\n                    return true;\r\n            }\r\n            return false;\r\n        }\r\n    };\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/activity/BottomNavigationActivity.java b/app/src/main/java/com/eajy/materialdesign2/activity/BottomNavigationActivity.java
+--- a/app/src/main/java/com/eajy/materialdesign2/activity/BottomNavigationActivity.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/activity/BottomNavigationActivity.java	(date 1694447896389)
+@@ -51,7 +51,7 @@
+         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+     }
+ 
+-    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
++    private final ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+         @Override
+         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+             ArgbEvaluator evaluator = new ArgbEvaluator();
+@@ -92,7 +92,7 @@
+         }
+     };
+ 
+-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
++    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+         @Override
+         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+             switch (item.getItemId()) {
+Index: app/src/main/java/com/eajy/materialdesign2/activity/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2.activity;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.Menu;\r\nimport android.view.MenuItem;\r\nimport android.view.View;\r\nimport android.widget.LinearLayout;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.app.ActionBarDrawerToggle;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.appcompat.widget.Toolbar;\r\nimport androidx.core.view.GravityCompat;\r\nimport androidx.drawerlayout.widget.DrawerLayout;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.viewpager.widget.ViewPager;\r\n\r\nimport com.eajy.materialdesign2.R;\r\nimport com.eajy.materialdesign2.adapter.FragmentAdapter;\r\nimport com.eajy.materialdesign2.fragment.CardsFragment;\r\nimport com.eajy.materialdesign2.fragment.DialogsFragment;\r\nimport com.eajy.materialdesign2.fragment.WidgetsFragment;\r\nimport com.google.android.material.floatingactionbutton.FloatingActionButton;\r\nimport com.google.android.material.navigation.NavigationView;\r\nimport com.google.android.material.snackbar.Snackbar;\r\nimport com.google.android.material.tabs.TabLayout;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class MainActivity extends AppCompatActivity\r\n        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {\r\n\r\n    private DrawerLayout drawer;\r\n    private FloatingActionButton fab;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_main);\r\n        initView();\r\n    }\r\n\r\n    private void initView() {\r\n        Toolbar toolbar = findViewById(R.id.toolbar);\r\n        setSupportActionBar(toolbar);\r\n        drawer = findViewById(R.id.drawer_layout);\r\n        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(\r\n                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);\r\n        drawer.addDrawerListener(toggle);\r\n        toggle.syncState();\r\n        NavigationView navigationView = findViewById(R.id.nav_view);\r\n        navigationView.setNavigationItemSelectedListener(this);\r\n        // navigationView.setItemIconTintList(null);\r\n        View headerView = navigationView.getHeaderView(0);\r\n        LinearLayout nav_header = headerView.findViewById(R.id.nav_header);\r\n        nav_header.setOnClickListener(this);\r\n        fab = findViewById(R.id.fab_main);\r\n        fab.setOnClickListener(this);\r\n\r\n        TabLayout mTabLayout = findViewById(R.id.tab_layout_main);\r\n        ViewPager mViewPager = findViewById(R.id.view_pager_main);\r\n        mViewPager.setOffscreenPageLimit(2);\r\n        List<String> titles = new ArrayList<>();\r\n        titles.add(getString(R.string.tab_title_main_1));\r\n        titles.add(getString(R.string.tab_title_main_2));\r\n        titles.add(getString(R.string.tab_title_main_3));\r\n        mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(0)));\r\n        mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(1)));\r\n        mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(2)));\r\n        List<Fragment> fragments = new ArrayList<>();\r\n        fragments.add(new CardsFragment());\r\n        fragments.add(new DialogsFragment());\r\n        fragments.add(new WidgetsFragment());\r\n        FragmentAdapter mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragments, titles);\r\n        mViewPager.setAdapter(mFragmentAdapter);\r\n        mTabLayout.setupWithViewPager(mViewPager);\r\n        mViewPager.addOnPageChangeListener(pageChangeListener);\r\n    }\r\n\r\n    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {\r\n        @Override\r\n        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {\r\n\r\n        }\r\n\r\n        @Override\r\n        public void onPageSelected(int position) {\r\n            if (position == 2) {\r\n                fab.show();\r\n            } else {\r\n                fab.hide();\r\n            }\r\n        }\r\n\r\n        @Override\r\n        public void onPageScrollStateChanged(int state) {\r\n\r\n        }\r\n    };\r\n\r\n    @Override\r\n    public void onBackPressed() {\r\n        if (drawer.isDrawerOpen(GravityCompat.START)) {\r\n            drawer.closeDrawer(GravityCompat.START);\r\n        } else {\r\n            super.onBackPressed();\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public boolean onCreateOptionsMenu(Menu menu) {\r\n        getMenuInflater().inflate(R.menu.menu_main, menu);\r\n        return true;\r\n    }\r\n\r\n    @Override\r\n    public boolean onOptionsItemSelected(MenuItem item) {\r\n        switch (item.getItemId()) {\r\n            case R.id.action_menu_main_about:\r\n                Intent aboutIntent = new Intent(this, AboutActivity.class);\r\n                startActivity(aboutIntent);\r\n                break;\r\n            case R.id.action_menu_main_donate:\r\n                Intent donateIntent = new Intent(this, DonateActivity.class);\r\n                startActivity(donateIntent);\r\n                break;\r\n            case R.id.action_menu_main_my_app:\r\n                Intent myAppsIntent = new Intent(this, MyAppsActivity.class);\r\n                startActivity(myAppsIntent);\r\n                break;\r\n        }\r\n        return super.onOptionsItemSelected(item);\r\n    }\r\n\r\n    @Override\r\n    public boolean onNavigationItemSelected(@NonNull MenuItem item) {\r\n        Intent intent = new Intent();\r\n        switch (item.getItemId()) {\r\n            case R.id.nav_recycler_and_swipe_refresh:\r\n                intent.setClass(this, RecyclerViewActivity.class);\r\n                startActivity(intent);\r\n                break;\r\n            case R.id.nav_scrolling:\r\n                intent.setClass(this, ScrollingActivity.class);\r\n                startActivity(intent);\r\n                break;\r\n            case R.id.nav_bottom_navigation:\r\n                intent.setClass(this, BottomNavigationActivity.class);\r\n                startActivity(intent);\r\n                break;\r\n            case R.id.nav_bottom_appbar:\r\n                intent.setClass(this, BottomAppBarActivity.class);\r\n                startActivity(intent);\r\n                break;\r\n            case R.id.nav_settings:\r\n                intent.setClass(this, SettingsActivity.class);\r\n                startActivity(intent);\r\n                break;\r\n            case R.id.nav_about:\r\n                intent.setClass(this, AboutActivity.class);\r\n                startActivity(intent);\r\n                break;\r\n            case R.id.nav_donate:\r\n                intent.setClass(this, DonateActivity.class);\r\n                startActivity(intent);\r\n                break;\r\n            case R.id.nav_my_apps:\r\n                intent.setClass(this, MyAppsActivity.class);\r\n                startActivity(intent);\r\n                break;\r\n        }\r\n        drawer.closeDrawer(GravityCompat.START);\r\n        return true;\r\n    }\r\n\r\n    @Override\r\n    public void onClick(View v) {\r\n        switch (v.getId()) {\r\n            case R.id.fab_main:\r\n                Snackbar.make(v, getString(R.string.main_snack_bar), Snackbar.LENGTH_LONG)\r\n                        .setAction(getString(R.string.main_snack_bar_action), view -> {\r\n                        }).show();\r\n                break;\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/activity/MainActivity.java b/app/src/main/java/com/eajy/materialdesign2/activity/MainActivity.java
+--- a/app/src/main/java/com/eajy/materialdesign2/activity/MainActivity.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/activity/MainActivity.java	(date 1694447896380)
+@@ -79,7 +79,7 @@
+         mViewPager.addOnPageChangeListener(pageChangeListener);
+     }
+ 
+-    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
++    private final ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+         @Override
+         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+ 
+@@ -177,12 +177,10 @@
+ 
+     @Override
+     public void onClick(View v) {
+-        switch (v.getId()) {
+-            case R.id.fab_main:
+-                Snackbar.make(v, getString(R.string.main_snack_bar), Snackbar.LENGTH_LONG)
+-                        .setAction(getString(R.string.main_snack_bar_action), view -> {
+-                        }).show();
+-                break;
++        if (v.getId() == R.id.fab_main) {
++            Snackbar.make(v, getString(R.string.main_snack_bar), Snackbar.LENGTH_LONG)
++                    .setAction(getString(R.string.main_snack_bar_action), view -> {
++                    }).show();
+         }
+     }
+ }
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n\r\n    defaultConfig {\r\n        applicationId \"com.eajy.materialdesign2\"\r\n        minSdkVersion 21\r\n        targetSdkVersion 30\r\n        versionCode 7\r\n        versionName \"1.6\"\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled true\r\n            shrinkResources true\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n        debug {\r\n            minifyEnabled false\r\n        }\r\n    }\r\n\r\n    compileOptions {\r\n        targetCompatibility 1.8\r\n        sourceCompatibility 1.8\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation fileTree(dir: 'libs', include: ['*.jar'])\r\n    testImplementation 'junit:junit:4.13.2'\r\n    androidTestImplementation 'androidx.test:runner:1.4.0-alpha04'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0-alpha04'\r\n\r\n    implementation 'androidx.appcompat:appcompat:1.3.0-beta01'\r\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\r\n    implementation 'com.google.android.material:material:1.4.0-alpha01'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    implementation 'androidx.preference:preference:1.1.1'\r\n    implementation 'com.android.billingclient:billing:3.0.3'\r\n    implementation 'com.github.bumptech.glide:glide:4.9.0'\r\n    implementation 'com.google.android.gms:play-services-ads:19.1.0'\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/build.gradle	(date 1693585492762)
+@@ -1,12 +1,13 @@
+ apply plugin: 'com.android.application'
++apply plugin: 'org.jetbrains.kotlin.android'
+ 
+ android {
+-    compileSdkVersion 30
++    compileSdkVersion 34
+ 
+     defaultConfig {
+         applicationId "com.eajy.materialdesign2"
+         minSdkVersion 21
+-        targetSdkVersion 30
++        targetSdkVersion 34
+         versionCode 7
+         versionName "1.6"
+         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+@@ -42,5 +43,5 @@
+     implementation 'androidx.preference:preference:1.1.1'
+     implementation 'com.android.billingclient:billing:3.0.3'
+     implementation 'com.github.bumptech.glide:glide:4.9.0'
+-    implementation 'com.google.android.gms:play-services-ads:19.1.0'
++    implementation 'com.google.android.gms:play-services-ads:22.3.0'
+ }
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <bytecodeTargetLevel target=\"1.8\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/.idea/compiler.xml	(date 1692217057480)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="CompilerConfiguration">
+-    <bytecodeTargetLevel target="1.8" />
++    <bytecodeTargetLevel target="17" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/Constant.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2;\r\n\r\n/**\r\n * Created by zhang on 2016.09.23.\r\n */\r\npublic class Constant {\r\n\r\n    public static String APP_URL = \"https://play.google.com/store/apps/details?id=com.eajy.materialdesign2\";\r\n    private static String DESIGNED_BY = \"Designed by Eajy in China\";\r\n    public static String SHARE_CONTENT = \"A beautiful app designed with Material Design 2:\\n\" + APP_URL + \"\\n- \" + DESIGNED_BY;\r\n    public static String EMAIL = \"mailto:eajy.zhangxiao@gmail.com\";\r\n    public static String GIT_HUB = \"https://github.com/Eajy/MaterialDesign2\";\r\n    public static String MY_WEBSITE = \"https://sites.google.com/view/eajy\";\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/Constant.java b/app/src/main/java/com/eajy/materialdesign2/Constant.java
+--- a/app/src/main/java/com/eajy/materialdesign2/Constant.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/Constant.java	(date 1694447896302)
+@@ -6,7 +6,7 @@
+ public class Constant {
+ 
+     public static String APP_URL = "https://play.google.com/store/apps/details?id=com.eajy.materialdesign2";
+-    private static String DESIGNED_BY = "Designed by Eajy in China";
++    private static final String DESIGNED_BY = "Designed by Eajy in China";
+     public static String SHARE_CONTENT = "A beautiful app designed with Material Design 2:\n" + APP_URL + "\n- " + DESIGNED_BY;
+     public static String EMAIL = "mailto:eajy.zhangxiao@gmail.com";
+     public static String GIT_HUB = "https://github.com/Eajy/MaterialDesign2";
+Index: app/src/main/java/com/eajy/materialdesign2/fragment/SettingsFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2.fragment;\r\n\r\nimport android.content.SharedPreferences;\r\nimport android.os.Bundle;\r\n\r\nimport com.eajy.materialdesign2.App;\r\nimport com.eajy.materialdesign2.R;\r\nimport com.google.android.material.snackbar.Snackbar;\r\n\r\nimport androidx.preference.ListPreference;\r\nimport androidx.preference.Preference;\r\nimport androidx.preference.PreferenceFragmentCompat;\r\nimport androidx.preference.PreferenceManager;\r\n\r\npublic class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener {\r\n\r\n    @Override\r\n    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {\r\n        addPreferencesFromResource(R.xml.preferences_settings);\r\n    }\r\n\r\n    @Override\r\n    public void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n\r\n        findPreference(\"pref_text\").setOnPreferenceChangeListener(this);\r\n        findPreference(\"pref_list\").setOnPreferenceChangeListener(this);\r\n\r\n        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(App.getContext());\r\n        onPreferenceChange(findPreference(\"pref_text\"), preferences.getString(\"pref_text\", \"\"));\r\n        onPreferenceChange(findPreference(\"pref_list\"), preferences.getString(\"pref_list\", \"\"));\r\n    }\r\n\r\n    @Override\r\n    public boolean onPreferenceTreeClick(Preference preference) {\r\n        if (preference.getKey() != null) {\r\n            switch (preference.getKey()) {\r\n                case \"pref_click\":\r\n                    Snackbar.make(getListView(), getString(R.string.pref_on_preference_click), Snackbar.LENGTH_SHORT).show();\r\n                    break;\r\n            }\r\n            return true;\r\n        }\r\n        return super.onPreferenceTreeClick(preference);\r\n    }\r\n\r\n    @Override\r\n    public boolean onPreferenceChange(Preference preference, Object newValue) {\r\n        String stringValue = newValue.toString();\r\n        if (preference instanceof ListPreference) {\r\n            ListPreference listPreference = (ListPreference) preference;\r\n            int index = listPreference.findIndexOfValue(stringValue);\r\n            preference.setSummary(index >= 0 ? listPreference.getEntries()[index] : null);\r\n        } else {\r\n            preference.setSummary(stringValue);\r\n        }\r\n        return true;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/fragment/SettingsFragment.java b/app/src/main/java/com/eajy/materialdesign2/fragment/SettingsFragment.java
+--- a/app/src/main/java/com/eajy/materialdesign2/fragment/SettingsFragment.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/fragment/SettingsFragment.java	(date 1694447896371)
+@@ -34,10 +34,8 @@
+     @Override
+     public boolean onPreferenceTreeClick(Preference preference) {
+         if (preference.getKey() != null) {
+-            switch (preference.getKey()) {
+-                case "pref_click":
+-                    Snackbar.make(getListView(), getString(R.string.pref_on_preference_click), Snackbar.LENGTH_SHORT).show();
+-                    break;
++            if ("pref_click".equals(preference.getKey())) {
++                Snackbar.make(getListView(), getString(R.string.pref_on_preference_click), Snackbar.LENGTH_SHORT).show();
+             }
+             return true;
+         }
+Index: .idea/codeStyles/codeStyleConfig.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/codeStyles/codeStyleConfig.xml b/.idea/codeStyles/codeStyleConfig.xml
+new file mode 100644
+--- /dev/null	(date 1694446654703)
++++ b/.idea/codeStyles/codeStyleConfig.xml	(date 1694446654703)
+@@ -0,0 +1,5 @@
++<component name="ProjectCodeStyleConfiguration">
++  <state>
++    <option name="USE_PER_PROJECT_SETTINGS" value="true" />
++  </state>
++</component>
+\ No newline at end of file
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Mon Apr 05 20:35:31 CST 2021\r\ndistributionBase=GRADLE_USER_HOME\r\ndistributionPath=wrapper/dists\r\nzipStoreBase=GRADLE_USER_HOME\r\nzipStorePath=wrapper/dists\r\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-6.5-all.zip\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+--- a/gradle/wrapper/gradle-wrapper.properties	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/gradle/wrapper/gradle-wrapper.properties	(date 1692216837583)
+@@ -1,6 +1,5 @@
+-#Mon Apr 05 20:35:31 CST 2021
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
++distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-bin.zip
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-6.5-all.zip
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CMakeSettings\">\r\n    <configurations>\r\n      <configuration PROFILE_NAME=\"Debug\" CONFIG_NAME=\"Debug\" />\r\n    </configurations>\r\n  </component>\r\n  <component name=\"NullableNotNullManager\">\r\n    <option name=\"myDefaultNullable\" value=\"org.jetbrains.annotations.Nullable\" />\r\n    <option name=\"myDefaultNotNull\" value=\"androidx.annotation.NonNull\" />\r\n    <option name=\"myNullables\">\r\n      <value>\r\n        <list size=\"10\">\r\n          <item index=\"0\" class=\"java.lang.String\" itemvalue=\"org.jetbrains.annotations.Nullable\" />\r\n          <item index=\"1\" class=\"java.lang.String\" itemvalue=\"javax.annotation.Nullable\" />\r\n          <item index=\"2\" class=\"java.lang.String\" itemvalue=\"javax.annotation.CheckForNull\" />\r\n          <item index=\"3\" class=\"java.lang.String\" itemvalue=\"edu.umd.cs.findbugs.annotations.Nullable\" />\r\n          <item index=\"4\" class=\"java.lang.String\" itemvalue=\"android.support.annotation.Nullable\" />\r\n          <item index=\"5\" class=\"java.lang.String\" itemvalue=\"androidx.annotation.Nullable\" />\r\n          <item index=\"6\" class=\"java.lang.String\" itemvalue=\"androidx.annotation.RecentlyNullable\" />\r\n          <item index=\"7\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.qual.Nullable\" />\r\n          <item index=\"8\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.compatqual.NullableDecl\" />\r\n          <item index=\"9\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.compatqual.NullableType\" />\r\n        </list>\r\n      </value>\r\n    </option>\r\n    <option name=\"myNotNulls\">\r\n      <value>\r\n        <list size=\"9\">\r\n          <item index=\"0\" class=\"java.lang.String\" itemvalue=\"org.jetbrains.annotations.NotNull\" />\r\n          <item index=\"1\" class=\"java.lang.String\" itemvalue=\"javax.annotation.Nonnull\" />\r\n          <item index=\"2\" class=\"java.lang.String\" itemvalue=\"edu.umd.cs.findbugs.annotations.NonNull\" />\r\n          <item index=\"3\" class=\"java.lang.String\" itemvalue=\"android.support.annotation.NonNull\" />\r\n          <item index=\"4\" class=\"java.lang.String\" itemvalue=\"androidx.annotation.NonNull\" />\r\n          <item index=\"5\" class=\"java.lang.String\" itemvalue=\"androidx.annotation.RecentlyNonNull\" />\r\n          <item index=\"6\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.qual.NonNull\" />\r\n          <item index=\"7\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.compatqual.NonNullDecl\" />\r\n          <item index=\"8\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.compatqual.NonNullType\" />\r\n        </list>\r\n      </value>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/.idea/misc.xml	(date 1694445881166)
+@@ -1,4 +1,3 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="CMakeSettings">
+     <configurations>
+@@ -10,7 +9,7 @@
+     <option name="myDefaultNotNull" value="androidx.annotation.NonNull" />
+     <option name="myNullables">
+       <value>
+-        <list size="10">
++        <list size="12">
+           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
+           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
+           <item index="2" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
+@@ -21,12 +20,14 @@
+           <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.Nullable" />
+           <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
+           <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
++          <item index="10" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.Nullable" />
++          <item index="11" class="java.lang.String" itemvalue="com.android.annotations.Nullable" />
+         </list>
+       </value>
+     </option>
+     <option name="myNotNulls">
+       <value>
+-        <list size="9">
++        <list size="11">
+           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
+           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
+           <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
+@@ -36,11 +37,13 @@
+           <item index="6" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.NonNull" />
+           <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
+           <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
++          <item index="9" class="java.lang.String" itemvalue="com.android.annotations.NonNull" />
++          <item index="10" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
+         </list>
+       </value>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+Index: app/src/main/res/layout/fragment_scrolling.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_scrolling.xml b/app/src/main/res/layout/fragment_scrolling.xml
+new file mode 100644
+--- /dev/null	(date 1693976660451)
++++ b/app/src/main/res/layout/fragment_scrolling.xml	(date 1693976660451)
+@@ -0,0 +1,52 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:fitsSystemWindows="true">
++
++    <com.google.android.material.appbar.AppBarLayout
++        android:id="@+id/app_bar_scrolling"
++        android:layout_width="match_parent"
++        android:layout_height="@dimen/app_bar_height_image_view"
++        android:fitsSystemWindows="true"
++        android:theme="@style/AppTheme.AppBarOverlay">
++
++        <com.google.android.material.appbar.CollapsingToolbarLayout
++            android:id="@+id/collapsing_toolbar_layout"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:fitsSystemWindows="true"
++            app:contentScrim="?attr/colorPrimary"
++            app:layout_scrollFlags="scroll|exitUntilCollapsed">
++
++            <ImageView
++                android:id="@+id/image_scrolling_top"
++                android:layout_width="match_parent"
++                android:layout_height="match_parent"
++                android:fitsSystemWindows="true"
++                android:scaleType="fitXY"
++                app:layout_collapseMode="parallax" />
++
++            <androidx.appcompat.widget.Toolbar
++                android:id="@+id/toolbar"
++                android:layout_width="match_parent"
++                android:layout_height="?attr/actionBarSize"
++                app:layout_collapseMode="pin"
++                app:popupTheme="@style/AppTheme.PopupOverlay" />
++
++        </com.google.android.material.appbar.CollapsingToolbarLayout>
++    </com.google.android.material.appbar.AppBarLayout>
++
++    <com.google.android.material.floatingactionbutton.FloatingActionButton
++        android:id="@+id/fab_scrolling"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_margin="@dimen/fab_margin"
++        android:src="@drawable/ic_share_white_24dp"
++        app:layout_anchor="@id/app_bar_scrolling"
++        app:layout_anchorGravity="bottom|end" />
++
++    <include layout="@layout/content_scrolling" />
++
++</androidx.coordinatorlayout.widget.CoordinatorLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/util/AppUtils.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2.util;\r\n\r\nimport android.content.Context;\r\nimport android.content.pm.ApplicationInfo;\r\nimport android.content.pm.PackageInfo;\r\nimport android.content.pm.PackageManager;\r\nimport android.os.Build;\r\nimport android.util.DisplayMetrics;\r\n\r\n/**\r\n * Created by zhang on 2017.11.22.\r\n */\r\n\r\npublic class AppUtils {\r\n\r\n    public static boolean checkAppInstalled(Context context, String packageName) {\r\n        try {\r\n            context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);\r\n            return true;\r\n        } catch (PackageManager.NameNotFoundException e) {\r\n            return false;\r\n        }\r\n    }\r\n\r\n    public static String getVersionName(Context context) {\r\n        try {\r\n            PackageManager manager = context.getPackageManager();\r\n            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);\r\n            String version = info.versionName;\r\n            return \"V: \" + version;\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n            return \"\";\r\n        }\r\n    }\r\n\r\n    public static int getScreenWidthDp(Context context) {\r\n        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();\r\n        return (int) (displayMetrics.widthPixels / displayMetrics.density);\r\n    }\r\n\r\n    public static boolean isGame(Context context) {\r\n        try {\r\n            PackageManager pm = context.getPackageManager();\r\n            ApplicationInfo applicationInfo = pm.getApplicationInfo(context.getPackageName(), 0);\r\n            if ((applicationInfo.flags & ApplicationInfo.FLAG_IS_GAME) == ApplicationInfo.FLAG_IS_GAME) {\r\n                return true;\r\n            }\r\n            if (Build.VERSION.SDK_INT >= 26 && applicationInfo.category == ApplicationInfo.CATEGORY_GAME) {\r\n                return true;\r\n            }\r\n            return false;\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/util/AppUtils.java b/app/src/main/java/com/eajy/materialdesign2/util/AppUtils.java
+--- a/app/src/main/java/com/eajy/materialdesign2/util/AppUtils.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/util/AppUtils.java	(date 1694447896257)
+@@ -46,10 +46,7 @@
+             if ((applicationInfo.flags & ApplicationInfo.FLAG_IS_GAME) == ApplicationInfo.FLAG_IS_GAME) {
+                 return true;
+             }
+-            if (Build.VERSION.SDK_INT >= 26 && applicationInfo.category == ApplicationInfo.CATEGORY_GAME) {
+-                return true;
+-            }
+-            return false;
++            return Build.VERSION.SDK_INT >= 26 && applicationInfo.category == ApplicationInfo.CATEGORY_GAME;
+         } catch (Exception e) {
+             e.printStackTrace();
+             return false;
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\n\r\nbuildscript {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n        \r\n    }\r\n    dependencies {\r\n        classpath 'com.android.tools.build:gradle:4.1.2'\r\n        \r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        // in the individual module build.gradle files\r\n    }\r\n}\r\n\r\nallprojects {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle b/build.gradle
+--- a/build.gradle	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/build.gradle	(date 1693857368230)
+@@ -7,8 +7,9 @@
+         
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:4.1.2'
+-        
++        classpath 'com.android.tools.build:gradle:4.2.2'
++        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20'
++
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+     }
+Index: .idea/kotlinc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/kotlinc.xml b/.idea/kotlinc.xml
+new file mode 100644
+--- /dev/null	(date 1693858337523)
++++ b/.idea/kotlinc.xml	(date 1693858337523)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="KotlinJpsPluginSettings">
++    <option name="version" value="1.8.20" />
++  </component>
++</project>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_bottom_navigation.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_bottom_navigation.xml b/app/src/main/res/layout/fragment_bottom_navigation.xml
+new file mode 100644
+--- /dev/null	(date 1693978737213)
++++ b/app/src/main/res/layout/fragment_bottom_navigation.xml	(date 1693978737213)
+@@ -0,0 +1,23 @@
++<?xml version="1.0" encoding="utf-8"?>
++<menu xmlns:android="http://schemas.android.com/apk/res/android">
++
++    <item
++        android:id="@+id/bottom_navigation_blue"
++        android:icon="@drawable/ic_dashboard_black_24dp"
++        android:title="Blue" />
++
++    <item
++        android:id="@+id/bottom_navigation_green"
++        android:icon="@drawable/ic_photo_black_24dp"
++        android:title="Green" />
++
++    <item
++        android:id="@+id/bottom_navigation_yellow"
++        android:icon="@drawable/ic_music_note_black_24dp"
++        android:title="Yellow" />
++
++    <item
++        android:id="@+id/bottom_navigation_red"
++        android:icon="@drawable/ic_movie_black_24dp"
++        android:title="Red" />
++</menu>
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/scrollingFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/scrollingFragment.kt b/app/src/main/java/com/eajy/materialdesign2/scrollingFragment.kt
+new file mode 100644
+--- /dev/null	(date 1693975384902)
++++ b/app/src/main/java/com/eajy/materialdesign2/scrollingFragment.kt	(date 1693975384902)
+@@ -0,0 +1,57 @@
++package com.eajy.materialdesign2
++
++import android.os.Bundle
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++
++// TODO: Rename parameter arguments, choose names that match
++// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++private const val ARG_PARAM1 = "param1"
++private const val ARG_PARAM2 = "param2"
++
++/**
++ * A simple [Fragment] subclass.
++ * Use the [scrollingFragment.newInstance] factory method to
++ * create an instance of this fragment.
++ */
++class scrollingFragment : Fragment() {
++    // TODO: Rename and change types of parameters
++    private var param1: String? = null
++    private var param2: String? = null
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        arguments?.let {
++            param1 = it.getString(ARG_PARAM1)
++            param2 = it.getString(ARG_PARAM2)
++        }
++    }
++
++    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
++                              savedInstanceState: Bundle?): View? {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_scrolling, container, false)
++    }
++
++    companion object {
++        /**
++         * Use this factory method to create a new instance of
++         * this fragment using the provided parameters.
++         *
++         * @param param1 Parameter 1.
++         * @param param2 Parameter 2.
++         * @return A new instance of fragment scrollingFragment.
++         */
++        // TODO: Rename and change types and number of parameters
++        @JvmStatic
++        fun newInstance(param1: String, param2: String) =
++                scrollingFragment().apply {
++                    arguments = Bundle().apply {
++                        putString(ARG_PARAM1, param1)
++                        putString(ARG_PARAM2, param2)
++                    }
++                }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/view/ItemTouchHelperCallback.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2.view;\r\n\r\nimport androidx.recyclerview.widget.GridLayoutManager;\r\nimport androidx.recyclerview.widget.ItemTouchHelper;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\n/**\r\n * Created by zhang on 2016.08.21.\r\n */\r\npublic class ItemTouchHelperCallback extends ItemTouchHelper.Callback {\r\n\r\n    private final int TYPE_NORMAL = 1;\r\n\r\n    private onMoveAndSwipedListener moveAndSwipedListener;\r\n\r\n    public ItemTouchHelperCallback(onMoveAndSwipedListener listener) {\r\n        this.moveAndSwipedListener = listener;\r\n    }\r\n\r\n    @Override\r\n    public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {\r\n        if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {\r\n            // for recyclerView with gridLayoutManager, support drag all directions, not support swipe\r\n            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;\r\n            int swipeFlags = 0;\r\n            return makeMovementFlags(dragFlags, swipeFlags);\r\n\r\n        } else {\r\n            // for recyclerView with linearLayoutManager, support drag up and down, and swipe lift and right\r\n            if (viewHolder.getItemViewType() == TYPE_NORMAL) {\r\n                int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;\r\n                int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;\r\n                return makeMovementFlags(dragFlags, swipeFlags);\r\n            } else {\r\n                return 0;\r\n            }\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {\r\n        // If the 2 items are not the same type, no dragging\r\n        if (viewHolder.getItemViewType() != target.getItemViewType()) {\r\n            return false;\r\n        }\r\n        moveAndSwipedListener.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());\r\n        return true;\r\n    }\r\n\r\n    @Override\r\n    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {\r\n        moveAndSwipedListener.onItemDismiss(viewHolder.getAdapterPosition());\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/view/ItemTouchHelperCallback.java b/app/src/main/java/com/eajy/materialdesign2/view/ItemTouchHelperCallback.java
+--- a/app/src/main/java/com/eajy/materialdesign2/view/ItemTouchHelperCallback.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/view/ItemTouchHelperCallback.java	(date 1694447896398)
+@@ -11,7 +11,7 @@
+ 
+     private final int TYPE_NORMAL = 1;
+ 
+-    private onMoveAndSwipedListener moveAndSwipedListener;
++    private final onMoveAndSwipedListener moveAndSwipedListener;
+ 
+     public ItemTouchHelperCallback(onMoveAndSwipedListener listener) {
+         this.moveAndSwipedListener = listener;
+Index: app/src/main/java/com/eajy/materialdesign2/BottomAppBarFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/BottomAppBarFragment.kt b/app/src/main/java/com/eajy/materialdesign2/BottomAppBarFragment.kt
+new file mode 100644
+--- /dev/null	(date 1693978737054)
++++ b/app/src/main/java/com/eajy/materialdesign2/BottomAppBarFragment.kt	(date 1693978737054)
+@@ -0,0 +1,57 @@
++package com.eajy.materialdesign2
++
++import android.os.Bundle
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++
++// TODO: Rename parameter arguments, choose names that match
++// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++private const val ARG_PARAM1 = "param1"
++private const val ARG_PARAM2 = "param2"
++
++/**
++ * A simple [Fragment] subclass.
++ * Use the [BottomAppBarFragment.newInstance] factory method to
++ * create an instance of this fragment.
++ */
++class BottomAppBarFragment : Fragment() {
++    // TODO: Rename and change types of parameters
++    private var param1: String? = null
++    private var param2: String? = null
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        arguments?.let {
++            param1 = it.getString(ARG_PARAM1)
++            param2 = it.getString(ARG_PARAM2)
++        }
++    }
++
++    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
++                              savedInstanceState: Bundle?): View? {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_bottom_app_bar, container, false)
++    }
++
++    companion object {
++        /**
++         * Use this factory method to create a new instance of
++         * this fragment using the provided parameters.
++         *
++         * @param param1 Parameter 1.
++         * @param param2 Parameter 2.
++         * @return A new instance of fragment BottomAppBarFragment.
++         */
++        // TODO: Rename and change types and number of parameters
++        @JvmStatic
++        fun newInstance(param1: String, param2: String) =
++                BottomAppBarFragment().apply {
++                    arguments = Bundle().apply {
++                        putString(ARG_PARAM1, param1)
++                        putString(ARG_PARAM2, param2)
++                    }
++                }
++    }
++}
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"delegatedBuild\" value=\"false\" />\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n        <option name=\"useQualifiedModuleNames\" value=\"true\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/.idea/gradle.xml	(date 1692216311587)
+@@ -5,17 +5,16 @@
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+         <option name="delegatedBuild" value="false" />
+-        <option name="testRunner" value="PLATFORM" />
++        <option name="testRunner" value="GRADLE" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
++        <option name="gradleJvm" value="Embedded JDK" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+             <option value="$PROJECT_DIR$/app" />
+           </set>
+         </option>
+-        <option name="resolveModulePerSourceSet" value="false" />
+-        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: gradlew.bat
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@if \"%DEBUG%\" == \"\" @echo off\r\n@rem ##########################################################################\r\n@rem\r\n@rem  Gradle startup script for Windows\r\n@rem\r\n@rem ##########################################################################\r\n\r\n@rem Set local scope for the variables with windows NT shell\r\nif \"%OS%\"==\"Windows_NT\" setlocal\r\n\r\nset DIRNAME=%~dp0\r\nif \"%DIRNAME%\" == \"\" set DIRNAME=.\r\nset APP_BASE_NAME=%~n0\r\nset APP_HOME=%DIRNAME%\r\n\r\n@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.\r\nset DEFAULT_JVM_OPTS=\r\n\r\n@rem Find java.exe\r\nif defined JAVA_HOME goto findJavaFromJavaHome\r\n\r\nset JAVA_EXE=java.exe\r\n%JAVA_EXE% -version >NUL 2>&1\r\nif \"%ERRORLEVEL%\" == \"0\" goto init\r\n\r\necho.\r\necho ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.\r\necho.\r\necho Please set the JAVA_HOME variable in your environment to match the\r\necho location of your Java installation.\r\n\r\ngoto fail\r\n\r\n:findJavaFromJavaHome\r\nset JAVA_HOME=%JAVA_HOME:\"=%\r\nset JAVA_EXE=%JAVA_HOME%/bin/java.exe\r\n\r\nif exist \"%JAVA_EXE%\" goto init\r\n\r\necho.\r\necho ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%\r\necho.\r\necho Please set the JAVA_HOME variable in your environment to match the\r\necho location of your Java installation.\r\n\r\ngoto fail\r\n\r\n:init\r\n@rem Get command-line arguments, handling Windows variants\r\n\r\nif not \"%OS%\" == \"Windows_NT\" goto win9xME_args\r\n\r\n:win9xME_args\r\n@rem Slurp the command line arguments.\r\nset CMD_LINE_ARGS=\r\nset _SKIP=2\r\n\r\n:win9xME_args_slurp\r\nif \"x%~1\" == \"x\" goto execute\r\n\r\nset CMD_LINE_ARGS=%*\r\n\r\n:execute\r\n@rem Setup the command line\r\n\r\nset CLASSPATH=%APP_HOME%\\gradle\\wrapper\\gradle-wrapper.jar\r\n\r\n@rem Execute Gradle\r\n\"%JAVA_EXE%\" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% \"-Dorg.gradle.appname=%APP_BASE_NAME%\" -classpath \"%CLASSPATH%\" org.gradle.wrapper.GradleWrapperMain %CMD_LINE_ARGS%\r\n\r\n:end\r\n@rem End local scope for the variables with windows NT shell\r\nif \"%ERRORLEVEL%\"==\"0\" goto mainEnd\r\n\r\n:fail\r\nrem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of\r\nrem the _cmd.exe /c_ return code!\r\nif  not \"\" == \"%GRADLE_EXIT_CONSOLE%\" exit 1\r\nexit /b 1\r\n\r\n:mainEnd\r\nif \"%OS%\"==\"Windows_NT\" endlocal\r\n\r\n:omega\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gradlew.bat b/gradlew.bat
+--- a/gradlew.bat	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/gradlew.bat	(date 1692216837779)
+@@ -1,3 +1,19 @@
++@rem
++@rem Copyright 2015 the original author or authors.
++@rem
++@rem Licensed under the Apache License, Version 2.0 (the "License");
++@rem you may not use this file except in compliance with the License.
++@rem You may obtain a copy of the License at
++@rem
++@rem      https://www.apache.org/licenses/LICENSE-2.0
++@rem
++@rem Unless required by applicable law or agreed to in writing, software
++@rem distributed under the License is distributed on an "AS IS" BASIS,
++@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++@rem See the License for the specific language governing permissions and
++@rem limitations under the License.
++@rem
++
+ @if "%DEBUG%" == "" @echo off
+ @rem ##########################################################################
+ @rem
+@@ -13,15 +29,18 @@
+ set APP_BASE_NAME=%~n0
+ set APP_HOME=%DIRNAME%
+ 
++@rem Resolve any "." and ".." in APP_HOME to make it shorter.
++for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
++
+ @rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+-set DEFAULT_JVM_OPTS=
++set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
+ 
+ @rem Find java.exe
+ if defined JAVA_HOME goto findJavaFromJavaHome
+ 
+ set JAVA_EXE=java.exe
+ %JAVA_EXE% -version >NUL 2>&1
+-if "%ERRORLEVEL%" == "0" goto init
++if "%ERRORLEVEL%" == "0" goto execute
+ 
+ echo.
+ echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+@@ -35,7 +54,7 @@
+ set JAVA_HOME=%JAVA_HOME:"=%
+ set JAVA_EXE=%JAVA_HOME%/bin/java.exe
+ 
+-if exist "%JAVA_EXE%" goto init
++if exist "%JAVA_EXE%" goto execute
+ 
+ echo.
+ echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
+@@ -45,28 +64,14 @@
+ 
+ goto fail
+ 
+-:init
+-@rem Get command-line arguments, handling Windows variants
+-
+-if not "%OS%" == "Windows_NT" goto win9xME_args
+-
+-:win9xME_args
+-@rem Slurp the command line arguments.
+-set CMD_LINE_ARGS=
+-set _SKIP=2
+-
+-:win9xME_args_slurp
+-if "x%~1" == "x" goto execute
+-
+-set CMD_LINE_ARGS=%*
+-
+ :execute
+ @rem Setup the command line
+ 
+ set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
+ 
++
+ @rem Execute Gradle
+-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %CMD_LINE_ARGS%
++"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
+ 
+ :end
+ @rem End local scope for the variables with windows NT shell
+Index: app/src/main/java/com/eajy/materialdesign2/BottomNavigationFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/BottomNavigationFragment.kt b/app/src/main/java/com/eajy/materialdesign2/BottomNavigationFragment.kt
+new file mode 100644
+--- /dev/null	(date 1693978737213)
++++ b/app/src/main/java/com/eajy/materialdesign2/BottomNavigationFragment.kt	(date 1693978737213)
+@@ -0,0 +1,55 @@
++package com.eajy.materialdesign2
++
++import android.os.Bundle
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++// TODO: Rename parameter arguments, choose names that match
++// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++private const val ARG_PARAM1 = "param1"
++private const val ARG_PARAM2 = "param2"
++
++/**
++ * A simple [Fragment] subclass.
++ * Use the [BottomNavigationFragment.newInstance] factory method to
++ * create an instance of this fragment.
++ */
++class BottomNavigationFragment : Fragment() {
++    // TODO: Rename and change types of parameters
++    private var param1: String? = null
++    private var param2: String? = null
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        arguments?.let {
++            param1 = it.getString(ARG_PARAM1)
++            param2 = it.getString(ARG_PARAM2)
++        }
++    }
++
++    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
++                              savedInstanceState: Bundle?): View? {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_bottom_navigation, container, false)
++    }
++
++    companion object {
++        /**
++         * Use this factory method to create a new instance of
++         * this fragment using the provided parameters.
++         *
++         * @param param1 Parameter 1.
++         * @param param2 Parameter 2.
++         * @return A new instance of fragment BottomNavigationFragment.
++         */
++        // TODO: Rename and change types and number of parameters
++        @JvmStatic fun newInstance(param1: String, param2: String) =
++                BottomNavigationFragment().apply {
++                    arguments = Bundle().apply {
++                        putString(ARG_PARAM1, param1)
++                        putString(ARG_PARAM2, param2)
++                    }
++                }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/adapter/RecyclerViewAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2.adapter;\r\n\r\nimport android.app.Activity;\r\nimport android.app.ActivityOptions;\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.content.res.ColorStateList;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.view.animation.AlphaAnimation;\r\nimport android.view.animation.Animation;\r\nimport android.view.animation.AnimationUtils;\r\nimport android.widget.ProgressBar;\r\nimport android.widget.RelativeLayout;\r\nimport android.widget.TextView;\r\n\r\nimport com.eajy.materialdesign2.R;\r\nimport com.eajy.materialdesign2.activity.ShareViewActivity;\r\nimport com.eajy.materialdesign2.view.onMoveAndSwipedListener;\r\nimport com.google.android.material.snackbar.Snackbar;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Collections;\r\nimport java.util.List;\r\n\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\n/**\r\n * Created by zhang on 2016.08.07.\r\n */\r\npublic class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements onMoveAndSwipedListener {\r\n\r\n    private Context context;\r\n    private List<String> mItems;\r\n    private int color = 0;\r\n    private View parentView;\r\n\r\n    private final int TYPE_NORMAL = 1;\r\n    private final int TYPE_FOOTER = 2;\r\n    private final int TYPE_HEADER = 3;\r\n    private final String FOOTER = \"footer\";\r\n    private final String HEADER = \"header\";\r\n\r\n    public RecyclerViewAdapter(Context context) {\r\n        this.context = context;\r\n        mItems = new ArrayList();\r\n    }\r\n\r\n    public void setItems(List<String> data) {\r\n        this.mItems.addAll(data);\r\n        notifyDataSetChanged();\r\n    }\r\n\r\n    public void addItem(int position, String insertData) {\r\n        mItems.add(position, insertData);\r\n        notifyItemInserted(position);\r\n    }\r\n\r\n    public void addItems(List<String> data) {\r\n        mItems.add(HEADER);\r\n        mItems.addAll(data);\r\n        notifyItemInserted(mItems.size() - 1);\r\n    }\r\n\r\n    public void addHeader() {\r\n        this.mItems.add(HEADER);\r\n        notifyItemInserted(mItems.size() - 1);\r\n    }\r\n\r\n    public void addFooter() {\r\n        mItems.add(FOOTER);\r\n        notifyItemInserted(mItems.size() - 1);\r\n    }\r\n\r\n    public void removeFooter() {\r\n        mItems.remove(mItems.size() - 1);\r\n        notifyItemRemoved(mItems.size());\r\n    }\r\n\r\n    public void setColor(int color) {\r\n        this.color = color;\r\n        notifyDataSetChanged();\r\n    }\r\n\r\n    @Override\r\n    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {\r\n        parentView = parent;\r\n        if (viewType == TYPE_NORMAL) {\r\n            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_view, parent, false);\r\n            return new RecyclerViewHolder(view);\r\n        } else if (viewType == TYPE_FOOTER) {\r\n            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_footer, parent, false);\r\n            return new FooterViewHolder(view);\r\n        } else {\r\n            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_header, parent, false);\r\n            return new HeaderViewHolder(view);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {\r\n\r\n        if (holder instanceof RecyclerViewHolder) {\r\n            final RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) holder;\r\n\r\n            Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);\r\n            recyclerViewHolder.mView.startAnimation(animation);\r\n\r\n            AlphaAnimation aa1 = new AlphaAnimation(1.0f, 0.1f);\r\n            aa1.setDuration(400);\r\n            recyclerViewHolder.rela_round.startAnimation(aa1);\r\n\r\n            AlphaAnimation aa = new AlphaAnimation(0.1f, 1.0f);\r\n            aa.setDuration(400);\r\n\r\n            if (color == 1) {\r\n                recyclerViewHolder.rela_round.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.google_blue)));\r\n            } else if (color == 2) {\r\n                recyclerViewHolder.rela_round.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.google_green)));\r\n            } else if (color == 3) {\r\n                recyclerViewHolder.rela_round.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.google_yellow)));\r\n            } else if (color == 4) {\r\n                recyclerViewHolder.rela_round.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.google_red)));\r\n            } else {\r\n                recyclerViewHolder.rela_round.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.gray)));\r\n            }\r\n\r\n            recyclerViewHolder.rela_round.startAnimation(aa);\r\n\r\n            recyclerViewHolder.mView.setOnClickListener(view -> {\r\n                Intent intent = new Intent(context, ShareViewActivity.class);\r\n                intent.putExtra(\"color\", color);\r\n                context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation\r\n                        ((Activity) context, recyclerViewHolder.rela_round, \"shareView\").toBundle());\r\n            });\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public int getItemViewType(int position) {\r\n        String s = mItems.get(position);\r\n        switch (s) {\r\n            case HEADER:\r\n                return TYPE_HEADER;\r\n            case FOOTER:\r\n                return TYPE_FOOTER;\r\n            default:\r\n                return TYPE_NORMAL;\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return mItems.size();\r\n    }\r\n\r\n\r\n    @Override\r\n    public boolean onItemMove(int fromPosition, int toPosition) {\r\n        Collections.swap(mItems, fromPosition, toPosition);\r\n        notifyItemMoved(fromPosition, toPosition);\r\n        return true;\r\n    }\r\n\r\n    @Override\r\n    public void onItemDismiss(final int position) {\r\n        mItems.remove(position);\r\n        notifyItemRemoved(position);\r\n\r\n        Snackbar.make(parentView, context.getString(R.string.item_swipe_dismissed), Snackbar.LENGTH_SHORT)\r\n                .setAction(context.getString(R.string.item_swipe_undo), v -> addItem(position, mItems.get(position))).show();\r\n    }\r\n\r\n\r\n    private class RecyclerViewHolder extends RecyclerView.ViewHolder {\r\n        private View mView;\r\n        private RelativeLayout rela_round;\r\n\r\n        private RecyclerViewHolder(View itemView) {\r\n            super(itemView);\r\n            mView = itemView;\r\n            rela_round = itemView.findViewById(R.id.rela_round);\r\n        }\r\n    }\r\n\r\n    private class FooterViewHolder extends RecyclerView.ViewHolder {\r\n        private ProgressBar progress_bar_load_more;\r\n\r\n        private FooterViewHolder(View itemView) {\r\n            super(itemView);\r\n            progress_bar_load_more = itemView.findViewById(R.id.progress_bar_load_more);\r\n        }\r\n    }\r\n\r\n    private class HeaderViewHolder extends RecyclerView.ViewHolder {\r\n        private TextView header_text;\r\n\r\n        private HeaderViewHolder(View itemView) {\r\n            super(itemView);\r\n            header_text = itemView.findViewById(R.id.header_text);\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/adapter/RecyclerViewAdapter.java b/app/src/main/java/com/eajy/materialdesign2/adapter/RecyclerViewAdapter.java
+--- a/app/src/main/java/com/eajy/materialdesign2/adapter/RecyclerViewAdapter.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/adapter/RecyclerViewAdapter.java	(date 1694447896416)
+@@ -31,8 +31,8 @@
+  */
+ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements onMoveAndSwipedListener {
+ 
+-    private Context context;
+-    private List<String> mItems;
++    private final Context context;
++    private final List<String> mItems;
+     private int color = 0;
+     private View parentView;
+ 
+@@ -174,8 +174,8 @@
+ 
+ 
+     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
+-        private View mView;
+-        private RelativeLayout rela_round;
++        private final View mView;
++        private final RelativeLayout rela_round;
+ 
+         private RecyclerViewHolder(View itemView) {
+             super(itemView);
+@@ -185,7 +185,7 @@
+     }
+ 
+     private class FooterViewHolder extends RecyclerView.ViewHolder {
+-        private ProgressBar progress_bar_load_more;
++        private final ProgressBar progress_bar_load_more;
+ 
+         private FooterViewHolder(View itemView) {
+             super(itemView);
+@@ -194,7 +194,7 @@
+     }
+ 
+     private class HeaderViewHolder extends RecyclerView.ViewHolder {
+-        private TextView header_text;
++        private final TextView header_text;
+ 
+         private HeaderViewHolder(View itemView) {
+             super(itemView);
+Index: app/src/main/res/layout/fragment_bottom_app_bar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_bottom_app_bar.xml b/app/src/main/res/layout/fragment_bottom_app_bar.xml
+new file mode 100644
+--- /dev/null	(date 1693979133663)
++++ b/app/src/main/res/layout/fragment_bottom_app_bar.xml	(date 1693979133663)
+@@ -0,0 +1,107 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:id="@+id/main_wrapper"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:orientation="vertical">
++
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:background="@color/white"
++            android:fontFamily="sans-serif-medium"
++            android:padding="@dimen/dimen_common"
++            android:text="@string/change_bottom_bar_text"
++            android:textColor="@color/colorPrimary"
++            android:translationZ="@dimen/dimen_common_small" />
++
++        <com.google.android.material.chip.ChipGroup
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:background="@color/white"
++            android:paddingStart="@dimen/dimen_common"
++            android:paddingEnd="@dimen/dimen_common"
++            android:paddingBottom="@dimen/dimen_common_small"
++            android:translationZ="@dimen/dimen_common_small"
++            app:chipSpacingHorizontal="@dimen/dimen_common"
++            app:chipSpacingVertical="@dimen/dimen_common_very_small"
++            app:singleSelection="false">
++
++            <com.google.android.material.chip.Chip
++                android:id="@+id/position_chip"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:checkable="true"
++                android:clickable="true"
++                android:text="@string/right_align" />
++
++            <com.google.android.material.chip.Chip
++                android:id="@+id/radius_chip"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:checkable="true"
++                android:clickable="true"
++                android:text="@string/zero_radius" />
++
++            <com.google.android.material.chip.Chip
++                android:id="@+id/margin_chip"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:checkable="true"
++                android:clickable="true"
++                android:text="@string/zero_margin" />
++
++            <com.google.android.material.chip.Chip
++                android:id="@+id/show_title_chip"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:checkable="true"
++                android:clickable="true"
++                android:text="@string/show_title" />
++        </com.google.android.material.chip.ChipGroup>
++
++        <androidx.recyclerview.widget.RecyclerView
++            android:id="@+id/recycler_view_bottom_appbar"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent" />
++    </LinearLayout>
++
++    <com.google.android.material.floatingactionbutton.FloatingActionButton
++        android:id="@+id/fab_bottom_appbar"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:clickable="true"
++        android:src="@drawable/ic_add_white_24dp"
++        app:fabSize="normal"
++        app:layout_anchor="@id/bottom_App_bar" />
++
++    <com.google.android.material.bottomappbar.BottomAppBar
++        android:id="@+id/bottom_App_bar"
++        android:layout_width="match_parent"
++        android:layout_height="?android:actionBarSize"
++        android:layout_gravity="bottom"
++        android:backgroundTint="@color/colorPrimary"
++        android:theme="@style/AppTheme.AppBarOverlay"
++        app:buttonGravity="bottom|top"
++        app:fabAlignmentMode="center"
++        app:hideOnScroll="true"
++        app:layout_scrollFlags="scroll|enterAlways"
++        app:popupTheme="@style/AppTheme.PopupOverlay">
++
++        <TextView
++            android:id="@+id/bottom_app_bar_title"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:gravity="center"
++            android:padding="8dp"
++            android:text="@string/nav_bottom_appbar"
++            android:textStyle="bold"
++            android:visibility="gone" />
++    </com.google.android.material.bottomappbar.BottomAppBar>
++
++</androidx.coordinatorlayout.widget.CoordinatorLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/adapter/FragmentAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2.adapter;\r\n\r\nimport java.util.List;\r\n\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.fragment.app.FragmentManager;\r\nimport androidx.fragment.app.FragmentStatePagerAdapter;\r\n\r\n/**\r\n * Created by zhang on 2016.08.07.\r\n */\r\npublic class FragmentAdapter extends FragmentStatePagerAdapter {\r\n    private List<Fragment> mFragments;\r\n    private List<String> mTitles;\r\n\r\n    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {\r\n        super(fm);\r\n        mFragments = fragments;\r\n        mTitles = titles;\r\n    }\r\n\r\n    @Override\r\n    public Fragment getItem(int position) {\r\n        return mFragments.get(position);\r\n    }\r\n\r\n    @Override\r\n    public int getCount() {\r\n        return mFragments.size();\r\n    }\r\n\r\n    @Override\r\n    public CharSequence getPageTitle(int position) {\r\n        return mTitles.get(position);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/adapter/FragmentAdapter.java b/app/src/main/java/com/eajy/materialdesign2/adapter/FragmentAdapter.java
+--- a/app/src/main/java/com/eajy/materialdesign2/adapter/FragmentAdapter.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/adapter/FragmentAdapter.java	(date 1694447896424)
+@@ -10,8 +10,8 @@
+  * Created by zhang on 2016.08.07.
+  */
+ public class FragmentAdapter extends FragmentStatePagerAdapter {
+-    private List<Fragment> mFragments;
+-    private List<String> mTitles;
++    private final List<Fragment> mFragments;
++    private final List<String> mTitles;
+ 
+     public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+         super(fm);
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Material Design 2</string>\r\n    <string name=\"app_designed_by\">Designed by Eajy in China</string>\r\n\r\n    <string name=\"navigation_drawer_open\" translatable=\"false\">Open navigation drawer</string>\r\n    <string name=\"navigation_drawer_close\" translatable=\"false\">Close navigation drawer</string>\r\n    <string name=\"nav_header_desc\" translatable=\"false\">Navigation header</string>\r\n    <string name=\"share_with\">Share with</string>\r\n\r\n    <string name=\"nav_header_text\">Welcome to Material Design 2</string>\r\n    <string name=\"nav_recycler_view\">Recycler View</string>\r\n    <string name=\"nav_scrolling\">Scrolling</string>\r\n    <string name=\"nav_fullscreen\">Fullscreen</string>\r\n    <string name=\"nav_bottom_navigation\">Bottom Navigation</string>\r\n    <string name=\"nav_settings\">Settings</string>\r\n    <string name=\"nav_bottom_appbar\">Bottom App Bar</string>\r\n    <string name=\"nav_about\">About</string>\r\n    <string name=\"nav_donate\">Donations</string>\r\n    <string name=\"main_feedback_email\">Feedback:MaterialDesign2</string>\r\n    <string name=\"main_not_found_email\">Not found email app</string>\r\n    <string name=\"nav_my_apps\">My Apps</string>\r\n\r\n    <string name=\"tab_title_main_1\">Cards</string>\r\n    <string name=\"tab_title_main_2\">Dialogs</string>\r\n    <string name=\"tab_title_main_3\">Widgets</string>\r\n    <string name=\"main_snack_bar\">This is a snack bar</string>\r\n    <string name=\"main_snack_bar_action\">Okay</string>\r\n\r\n    <string name=\"main_card_title\">Title goes here</string>\r\n    <string name=\"main_card_with_stroke_title\">Card with stroke</string>\r\n    <string name=\"main_card_title_short\">Title</string>\r\n    <string name=\"main_card_subtitle\">Subtitle here</string>\r\n    <string name=\"main_card_details\">Details here</string>\r\n    <string name=\"main_card_button_1\">ACTION 1</string>\r\n    <string name=\"main_card_button_2\">ACTION 2</string>\r\n    <string name=\"main_flat_button_1_clicked\">Action 1</string>\r\n    <string name=\"main_flat_button_2_clicked\">Action 2</string>\r\n\r\n    <string name=\"dialog_ok\">OK</string>\r\n    <string name=\"dialog_cancel\">Cancel</string>\r\n    <string name=\"dialog_neutral\">Neutral</string>\r\n    <string name=\"dialog_close\">Close</string>\r\n    <string name=\"main_dialog_simple\">Simple dialog</string>\r\n    <string name=\"main_dialog_simple_title\">A simple dialog</string>\r\n    <string name=\"main_dialog_simple_message\">\r\n        \"A material metaphor is the unifying theory of a rationalized space and a system of motion. \"\r\n        \"\\nThe material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic.\"</string>\r\n    <string name=\"main_dialog_single_choice\">Single choice dialog</string>\r\n    <string name=\"main_dialog_multi_choice\">Multi choice dialog</string>\r\n    <string name=\"main_dialog_progress_title\">Progress dialog…</string>\r\n    <string name=\"main_dialog_progress\">Progress dialog</string>\r\n    <string name=\"main_dialog_data_picker\">Date Picker Dialog</string>\r\n    <string name=\"main_dialog_data_time\">Time Picker Dialog</string>\r\n    <string name=\"main_dialog_bottom\">Bottom Dialog</string>\r\n    <string name=\"main_dialog_fullscreen\">Fullscreen Dialog</string>\r\n    <string name=\"main_popup_menu\">Popup Menu</string>\r\n\r\n    <string name=\"main_widget_material_button\">Material Buttons</string>\r\n    <string name=\"main_widget_material_button_default\">Round corner button</string>\r\n    <string name=\"main_widget_material_button_stroke\">Button with stroke</string>\r\n    <string name=\"main_widget_material_button_unelevated\">Unelevated button</string>\r\n    <string name=\"main_widget_material_button_outline\">Outlined button</string>\r\n    <string name=\"main_widget_material_button_text\">Text button</string>\r\n    <string name=\"main_widget_material_button_icon\">Icon button</string>\r\n    <string name=\"main_widget_toggle_button\">Toggle Button</string>\r\n    <string name=\"main_widget_toggle_group\">Button Toggle Group</string>\r\n    <string name=\"main_widget_switch\">Switch</string>\r\n    <string name=\"main_widget_check_box\">Check Box</string>\r\n    <string name=\"main_widget_check_box_1\">CheckBox 1</string>\r\n    <string name=\"main_widget_check_box_2\">CheckBox 2</string>\r\n    <string name=\"main_widget_check_box_3\">CheckBox 3</string>\r\n    <string name=\"main_widget_radio\">Radio Group and Radio Buttons</string>\r\n    <string name=\"main_widget_radio_button_1\">RadioButton 1</string>\r\n    <string name=\"main_widget_radio_button_2\">RadioButton 2</string>\r\n    <string name=\"main_widget_radio_button_3\">RadioButton 3</string>\r\n    <string name=\"main_widget_seek_bar\">Seek Bar</string>\r\n    <string name=\"main_widget_progress_bar\">Progress Bar</string>\r\n    <string name=\"main_widget_extract_edit_text\">Extract Edit Text</string>\r\n    <string name=\"main_widget_text_input_layout\">Text Input Layout</string>\r\n    <string name=\"main_widget_edit_text_outline_box\">Outlined Box</string>\r\n    <string name=\"main_widget_edit_text_filled_box\">Filled Box</string>\r\n    <string name=\"main_widget_spinner\">Spinner</string>\r\n    <string name=\"main_widget_data_picker\">Date Picker</string>\r\n    <string name=\"main_widget_time_picker\">Time Picker</string>\r\n    <string name=\"main_widget_chip\">Chips</string>\r\n\r\n    <string name=\"title_activity_recycler_view\">RecyclerView</string>\r\n    <string name=\"tv_recycler_item_1\">Swipe down to refresh</string>\r\n    <string name=\"tv_recycler_item_2\">Swipe left or right to dismiss it</string>\r\n    <string name=\"tv_recycler_item_3\">Drag up or down to move it</string>\r\n    <string name=\"title_activity_share_view\">Share View</string>\r\n    <string name=\"share_view_press_it\">You can press it</string>\r\n    <string name=\"no_more_data\">No more data</string>\r\n    <string name=\"item_swipe_dismissed\">Dismissed</string>\r\n    <string name=\"item_swipe_undo\">Undo</string>\r\n    <string name=\"extended_fab\">Extended Fab</string>\r\n\r\n    <!-- Strings related to Scrolling -->\r\n    <string name=\"title_activity_scrolling\">Scrolling</string>\r\n    <string name=\"large_text\">\r\n        \"Material is the metaphor.\"\r\n        \"\\n\\nA material metaphor is the unifying theory of a rationalized space and a system of motion.\"\r\n        \"The material is grounded in tactile reality, inspired by the study of paper and ink, yet \"\r\n        \"technologically advanced and open to imagination and magic.\"\r\n        \"\\nSurfaces and edges of the material provide visual cues that are grounded in reality. The \"\r\n        \"use of familiar tactile attributes helps users quickly understand affordances. Yet the \"\r\n        \"flexibility of the material creates new affordances that supercede those in the physical \"\r\n        \"world, without breaking the rules of physics.\"\r\n        \"\\nThe fundamentals of light, surface, and movement are key to conveying how objects move, \"\r\n        \"interact, and exist in space and in relation to each other. Realistic lighting shows \"\r\n        \"seams, divides space, and indicates moving parts.\"\r\n        \"\\n\\nBold, graphic, intentional.\"\r\n        \"\\n\\nThe foundational elements of print based design typography, grids, space, scale, color, \"\r\n        \"and use of imagery guide visual treatments. These elements do far more than please the \"\r\n        \"eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge \"\r\n        \"imagery, large scale typography, and intentional white space create a bold and graphic \"\r\n        \"interface that immerse the user in the experience.\"\r\n        \"\\nAn emphasis on user actions makes core functionality immediately apparent and provides \"\r\n        \"waypoints for the user.\"\r\n        \"\\n\\nMotion provides meaning.\"\r\n        \"\\n\\nMotion respects and reinforces the user as the prime mover. Primary user actions are \"\r\n        \"inflection points that initiate motion, transforming the whole design.\"\r\n        \"\\nAll action takes place in a single environment. Objects are presented to the user without \"\r\n        \"breaking the continuity of experience even as they transform and reorganize.\"\r\n        \"\\nMotion is meaningful and appropriate, serving to focus attention and maintain continuity. \"\r\n        \"Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\"\r\n        \"\\n\\n3D world.\"\r\n        \"\\n\\nThe material environment is a 3D space, which means all objects have x, y, and z \"\r\n        \"dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the \"\r\n        \"positive z-axis extending towards the viewer. Every sheet of material occupies a single \"\r\n        \"position along the z-axis and has a standard 1dp thickness.\"\r\n        \"\\nOn the web, the z-axis is used for layering and not for perspective. The 3D world is \"\r\n        \"emulated by manipulating the y-axis.\"\r\n        \"\\n\\nLight and shadow.\"\r\n        \"\\n\\nWithin the material environment, virtual lights illuminate the scene. Key lights create \"\r\n        \"directional shadows, while ambient light creates soft shadows from all angles.\"\r\n        \"\\nShadows in the material environment are cast by these two light sources. In Android \"\r\n        \"development, shadows occur when light sources are blocked by sheets of material at \"\r\n        \"various positions along the z-axis. On the web, shadows are depicted by manipulating the \"\r\n        \"y-axis only. The following example shows the card with a height of 6dp.\"\r\n        \"\\n\\nResting elevation.\"\r\n        \"\\n\\nAll material objects, regardless of size, have a resting elevation, or default elevation \"\r\n        \"that does not change. If an object changes elevation, it should return to its resting \"\r\n        \"elevation as soon as possible.\"\r\n        \"\\n\\nComponent elevations.\"\r\n        \"\\n\\nThe resting elevation for a component type is consistent across apps (e.g., FAB elevation \"\r\n        \"does not vary from 6dp in one app to 16dp in another app).\"\r\n        \"\\nComponents may have different resting elevations across platforms, depending on the depth \"\r\n        \"of the environment (e.g., TV has a greater depth than mobile or desktop).\"\r\n        \"\\n\\nResponsive elevation and dynamic elevation offsets.\"\r\n        \"\\n\\nSome component types have responsive elevation, meaning they change elevation in response \"\r\n        \"to user input (e.g., normal, focused, and pressed) or system events. These elevation \"\r\n        \"changes are consistently implemented using dynamic elevation offsets.\"\r\n        \"\\nDynamic elevation offsets are the goal elevation that a component moves towards, relative \"\r\n        \"to the component’s resting state. They ensure that elevation changes are consistent \"\r\n        \"across actions and component types. For example, all components that lift on press have \"\r\n        \"the same elevation change relative to their resting elevation.\"\r\n        \"\\nOnce the input event is completed or cancelled, the component will return to its resting \"\r\n        \"elevation.\"\r\n        \"\\n\\nAvoiding elevation interference.\"\r\n        \"\\n\\nComponents with responsive elevations may encounter other components as they move between \"\r\n        \"their resting elevations and dynamic elevation offsets. Because material cannot pass \"\r\n        \"through other material, components avoid interfering with one another any number of ways, \"\r\n        \"whether on a per component basis or using the entire app layout.\"\r\n        \"\\nOn a component level, components can move or be removed before they cause interference. \"\r\n        \"For example, a floating action button (FAB) can disappear or move off screen before a \"\r\n        \"user picks up a card, or it can move if a snackbar appears.\"\r\n        \"\\nOn the layout level, design your app layout to minimize opportunities for interference. \"\r\n        \"For example, position the FAB to one side of stream of a cards so the FAB won’t interfere \"\r\n        \"when a user tries to pick up one of cards.\\n\\n\"\r\n    </string>\r\n\r\n    <string name=\"change_bottom_bar_text\">Change bottom bar cutout properties:</string>\r\n    <string name=\"right_align\">Right Align</string>\r\n    <string name=\"zero_radius\">Zero Radius</string>\r\n    <string name=\"zero_margin\">Zero Margin</string>\r\n    <string name=\"show_title\">Show Title</string>\r\n\r\n    <!-- Strings related to Settings -->\r\n    <string name=\"settings_category_basic\">Basic Settings</string>\r\n    <string name=\"settings_category_advanced\">Advanced Settings</string>\r\n    <string name=\"settings_category_other\">Other Settings</string>\r\n    <string name=\"title_activity_settings\">Settings</string>\r\n    <string name=\"settings_switch_preference_title\">Switch Preference</string>\r\n    <string name=\"settings_switch_preference_summary\">Switch Preference Summary</string>\r\n    <string name=\"settings_check_box_preference_title\">Check Box Preference</string>\r\n    <string name=\"settings_edit_text_preference_title\">Edit Text Preference</string>\r\n    <string name=\"settings_edit_text_preference_default_value\">Material Design 2</string>\r\n    <string name=\"settings_list_preference_dialog_title\">List Preference</string>\r\n    <string name=\"settings_list_preference_title\">List Preference</string>\r\n    <string name=\"settings_multi_select_list_preference_dialog_title\">Multi Select List Preference</string>\r\n    <string name=\"settings_multi_select_list_preference_title\">Multi Select List Preference</string>\r\n    <string name=\"settings_preference_click_title\">OnPreferenceClickListener</string>\r\n    <string name=\"settings_preference_click_to_activity\">Click to start an activity</string>\r\n    <string name=\"pref_title_system_sync_settings\">System sync settings</string>\r\n    <string name=\"pref_title_new_message_notifications\">New message notifications</string>\r\n    <string name=\"pref_title_ringtone\">Ringtone</string>\r\n    <string name=\"pref_ringtone_silent\">Silent</string>\r\n    <string name=\"pref_title_vibrate\">Vibrate</string>\r\n    <string name=\"pref_on_preference_click\">onPreferenceClick</string>\r\n\r\n    <string name=\"activity_my_apps\">My Apps</string>\r\n\r\n    <!-- String related to About -->\r\n    <string name=\"title_activity_about\">About</string>\r\n    <string name=\"about_version\">Version: </string>\r\n    <string name=\"about_email_intent\">Feedback:MaterialDesign2</string>\r\n    <string name=\"about_not_found_email\">Not found email app</string>\r\n    <string name=\"about_card1_title\">Material Design Demo</string>\r\n    <string name=\"about_card1_message\">Hey, glad to see you!</string>\r\n    <string name=\"about_card2_title\">If you liked the app, feel free to contact me.</string>\r\n    <string name=\"about_google_play\">Rate on Google play</string>\r\n    <string name=\"about_email\">Feedback by E-mail</string>\r\n    <string name=\"about_git_hub\">Source code on GitHub</string>\r\n    <string name=\"about_address\">Beijing, China</string>\r\n    <string name=\"about_website\">View my website</string>\r\n    <string name=\"about_source_licenses\">Open source licenses</string>\r\n\r\n    <!-- String related to Ad -->\r\n    <string name=\"banner_ad_title\">Advertise</string>\r\n    <string name=\"banner_ad_loading\">Ads loading …</string>\r\n\r\n    <!-- String related to Donate -->\r\n    <string name=\"activity_donate\">Donations</string>\r\n    <string name=\"donate\">Donate</string>\r\n    <string name=\"donated\">Donated</string>\r\n    <string name=\"donate_title\">I Would Be Very Grateful If You Could Donate Me ! </string>\r\n    <string name=\"donate_title_after\">Thanks For Your Donations, I Am Very Grateful ! </string>\r\n    <string name=\"donate_low\">1.99 USD</string>\r\n    <string name=\"donate_high\">9.99 USD</string>\r\n    <string name=\"donate_exception\">Sorry, Failed!</string>\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/res/values/strings.xml	(date 1693980469990)
+@@ -229,4 +229,6 @@
+     <string name="donate_low">1.99 USD</string>
+     <string name="donate_high">9.99 USD</string>
+     <string name="donate_exception">Sorry, Failed!</string>
++    <!-- TODO: Remove or change this placeholder text -->
++    <string name="hello_blank_fragment">Hello blank fragment</string>
+ </resources>
+Index: app/src/main/java/com/eajy/materialdesign2/adapter/MyAppsAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2.adapter;\r\n\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.net.Uri;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport com.bumptech.glide.Glide;\r\nimport com.eajy.materialdesign2.R;\r\nimport com.eajy.materialdesign2.util.AppUtils;\r\nimport com.eajy.materialdesign2.view.MyAppsModel;\r\n\r\nimport java.util.List;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\npublic class MyAppsAdapter extends RecyclerView.Adapter<MyAppsAdapter.MyAppsHolder> {\r\n\r\n    private Context context;\r\n    private List<MyAppsModel> items;\r\n\r\n    public MyAppsAdapter(Context context, List<MyAppsModel> items) {\r\n        this.context = context;\r\n        this.items = items;\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public MyAppsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_apps, parent, false);\r\n        return new MyAppsHolder(view);\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull final MyAppsHolder holder, final int position) {\r\n        holder.setIsRecyclable(false);\r\n\r\n        final MyAppsModel model = items.get(holder.getAdapterPosition());\r\n        int resId = context.getResources().getIdentifier(model.getImageUrl(), \"drawable\", context.getPackageName());\r\n        Glide.with(context).load(resId).into(holder.image_app);\r\n        holder.tv_app_name.setText(model.getName());\r\n        holder.tv_app_description.setText(model.getDescription());\r\n\r\n        holder.itemView.setOnClickListener(v -> {\r\n            Intent intent = new Intent();\r\n            if (AppUtils.checkAppInstalled(context, model.getPackageName())) {\r\n                intent = context.getPackageManager().getLaunchIntentForPackage(model.getPackageName());\r\n                if (intent != null) {\r\n                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);\r\n                }\r\n                context.startActivity(intent);\r\n            } else {\r\n                intent.setData(Uri.parse(model.getGooglePlayUrl()));\r\n                intent.setAction(Intent.ACTION_VIEW);\r\n                context.startActivity(intent);\r\n            }\r\n        });\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return items.size();\r\n    }\r\n\r\n\r\n    class MyAppsHolder extends RecyclerView.ViewHolder {\r\n\r\n        private View mView;\r\n        private ImageView image_app;\r\n        private TextView tv_app_name, tv_app_description;\r\n\r\n        private MyAppsHolder(View itemView) {\r\n            super(itemView);\r\n            mView = itemView;\r\n            image_app = itemView.findViewById(R.id.image_app);\r\n            tv_app_name = itemView.findViewById(R.id.tv_app_name);\r\n            tv_app_description = itemView.findViewById(R.id.tv_app_description);\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/adapter/MyAppsAdapter.java b/app/src/main/java/com/eajy/materialdesign2/adapter/MyAppsAdapter.java
+--- a/app/src/main/java/com/eajy/materialdesign2/adapter/MyAppsAdapter.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/adapter/MyAppsAdapter.java	(date 1694447896348)
+@@ -21,8 +21,8 @@
+ 
+ public class MyAppsAdapter extends RecyclerView.Adapter<MyAppsAdapter.MyAppsHolder> {
+ 
+-    private Context context;
+-    private List<MyAppsModel> items;
++    private final Context context;
++    private final List<MyAppsModel> items;
+ 
+     public MyAppsAdapter(Context context, List<MyAppsModel> items) {
+         this.context = context;
+@@ -70,9 +70,10 @@
+ 
+     class MyAppsHolder extends RecyclerView.ViewHolder {
+ 
+-        private View mView;
+-        private ImageView image_app;
+-        private TextView tv_app_name, tv_app_description;
++        private final View mView;
++        private final ImageView image_app;
++        private final TextView tv_app_name;
++        private final TextView tv_app_description;
+ 
+         private MyAppsHolder(View itemView) {
+             super(itemView);
+Index: app/src/main/java/com/eajy/materialdesign2/adapter/ViewPagerAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.eajy.materialdesign2.adapter;\r\n\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport java.util.List;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.viewpager.widget.PagerAdapter;\r\n\r\npublic class ViewPagerAdapter extends PagerAdapter {\r\n\r\n    private List<View> viewList;\r\n\r\n    public ViewPagerAdapter(List<View> viewList) {\r\n        this.viewList = viewList;\r\n    }\r\n\r\n    @Override\r\n    public int getCount() {\r\n        return viewList.size();\r\n    }\r\n\r\n    @Override\r\n    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {\r\n        return view == object;\r\n    }\r\n\r\n    @Override\r\n    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {\r\n        container.removeView(viewList.get(position));\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public Object instantiateItem(@NonNull ViewGroup container, int position) {\r\n        container.addView(viewList.get(position));\r\n        return viewList.get(position);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/adapter/ViewPagerAdapter.java b/app/src/main/java/com/eajy/materialdesign2/adapter/ViewPagerAdapter.java
+--- a/app/src/main/java/com/eajy/materialdesign2/adapter/ViewPagerAdapter.java	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/app/src/main/java/com/eajy/materialdesign2/adapter/ViewPagerAdapter.java	(date 1694447896358)
+@@ -10,7 +10,7 @@
+ 
+ public class ViewPagerAdapter extends PagerAdapter {
+ 
+-    private List<View> viewList;
++    private final List<View> viewList;
+ 
+     public ViewPagerAdapter(List<View> viewList) {
+         this.viewList = viewList;
+Index: .idea/codeStyles/Project.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"ProjectCodeStyleConfiguration\">\r\n  <code_scheme name=\"Project\" version=\"173\">\r\n    <JetCodeStyleSettings>\r\n      <option name=\"PACKAGES_TO_USE_STAR_IMPORTS\">\r\n        <value>\r\n          <package name=\"java.util\" alias=\"false\" withSubpackages=\"false\" />\r\n          <package name=\"kotlinx.android.synthetic\" alias=\"false\" withSubpackages=\"true\" />\r\n          <package name=\"io.ktor\" alias=\"false\" withSubpackages=\"true\" />\r\n        </value>\r\n      </option>\r\n      <option name=\"PACKAGES_IMPORT_LAYOUT\">\r\n        <value>\r\n          <package name=\"\" alias=\"false\" withSubpackages=\"true\" />\r\n          <package name=\"java\" alias=\"false\" withSubpackages=\"true\" />\r\n          <package name=\"javax\" alias=\"false\" withSubpackages=\"true\" />\r\n          <package name=\"kotlin\" alias=\"false\" withSubpackages=\"true\" />\r\n          <package name=\"\" alias=\"true\" withSubpackages=\"true\" />\r\n        </value>\r\n      </option>\r\n    </JetCodeStyleSettings>\r\n    <codeStyleSettings language=\"XML\">\r\n      <indentOptions>\r\n        <option name=\"CONTINUATION_INDENT_SIZE\" value=\"4\" />\r\n      </indentOptions>\r\n      <arrangement>\r\n        <rules>\r\n          <section>\r\n            <rule>\r\n              <match>\r\n                <AND>\r\n                  <NAME>xmlns:android</NAME>\r\n                  <XML_ATTRIBUTE />\r\n                  <XML_NAMESPACE>^$</XML_NAMESPACE>\r\n                </AND>\r\n              </match>\r\n            </rule>\r\n          </section>\r\n          <section>\r\n            <rule>\r\n              <match>\r\n                <AND>\r\n                  <NAME>xmlns:.*</NAME>\r\n                  <XML_ATTRIBUTE />\r\n                  <XML_NAMESPACE>^$</XML_NAMESPACE>\r\n                </AND>\r\n              </match>\r\n              <order>BY_NAME</order>\r\n            </rule>\r\n          </section>\r\n          <section>\r\n            <rule>\r\n              <match>\r\n                <AND>\r\n                  <NAME>.*:id</NAME>\r\n                  <XML_ATTRIBUTE />\r\n                  <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>\r\n                </AND>\r\n              </match>\r\n            </rule>\r\n          </section>\r\n          <section>\r\n            <rule>\r\n              <match>\r\n                <AND>\r\n                  <NAME>.*:name</NAME>\r\n                  <XML_ATTRIBUTE />\r\n                  <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>\r\n                </AND>\r\n              </match>\r\n            </rule>\r\n          </section>\r\n          <section>\r\n            <rule>\r\n              <match>\r\n                <AND>\r\n                  <NAME>name</NAME>\r\n                  <XML_ATTRIBUTE />\r\n                  <XML_NAMESPACE>^$</XML_NAMESPACE>\r\n                </AND>\r\n              </match>\r\n            </rule>\r\n          </section>\r\n          <section>\r\n            <rule>\r\n              <match>\r\n                <AND>\r\n                  <NAME>style</NAME>\r\n                  <XML_ATTRIBUTE />\r\n                  <XML_NAMESPACE>^$</XML_NAMESPACE>\r\n                </AND>\r\n              </match>\r\n            </rule>\r\n          </section>\r\n          <section>\r\n            <rule>\r\n              <match>\r\n                <AND>\r\n                  <NAME>.*</NAME>\r\n                  <XML_ATTRIBUTE />\r\n                  <XML_NAMESPACE>^$</XML_NAMESPACE>\r\n                </AND>\r\n              </match>\r\n              <order>BY_NAME</order>\r\n            </rule>\r\n          </section>\r\n          <section>\r\n            <rule>\r\n              <match>\r\n                <AND>\r\n                  <NAME>.*</NAME>\r\n                  <XML_ATTRIBUTE />\r\n                  <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>\r\n                </AND>\r\n              </match>\r\n              <order>ANDROID_ATTRIBUTE_ORDER</order>\r\n            </rule>\r\n          </section>\r\n          <section>\r\n            <rule>\r\n              <match>\r\n                <AND>\r\n                  <NAME>.*</NAME>\r\n                  <XML_ATTRIBUTE />\r\n                  <XML_NAMESPACE>.*</XML_NAMESPACE>\r\n                </AND>\r\n              </match>\r\n              <order>BY_NAME</order>\r\n            </rule>\r\n          </section>\r\n        </rules>\r\n      </arrangement>\r\n    </codeStyleSettings>\r\n  </code_scheme>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/codeStyles/Project.xml b/.idea/codeStyles/Project.xml
+--- a/.idea/codeStyles/Project.xml	(revision 5de957102b0788d81cff4766f61ac2362e07ae66)
++++ b/.idea/codeStyles/Project.xml	(date 1694446654662)
+@@ -1,24 +1,10 @@
+ <component name="ProjectCodeStyleConfiguration">
+   <code_scheme name="Project" version="173">
+     <JetCodeStyleSettings>
+-      <option name="PACKAGES_TO_USE_STAR_IMPORTS">
+-        <value>
+-          <package name="java.util" alias="false" withSubpackages="false" />
+-          <package name="kotlinx.android.synthetic" alias="false" withSubpackages="true" />
+-          <package name="io.ktor" alias="false" withSubpackages="true" />
+-        </value>
+-      </option>
+-      <option name="PACKAGES_IMPORT_LAYOUT">
+-        <value>
+-          <package name="" alias="false" withSubpackages="true" />
+-          <package name="java" alias="false" withSubpackages="true" />
+-          <package name="javax" alias="false" withSubpackages="true" />
+-          <package name="kotlin" alias="false" withSubpackages="true" />
+-          <package name="" alias="true" withSubpackages="true" />
+-        </value>
+-      </option>
++      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+     </JetCodeStyleSettings>
+     <codeStyleSettings language="XML">
++      <option name="FORCE_REARRANGE_MODE" value="1" />
+       <indentOptions>
+         <option name="CONTINUATION_INDENT_SIZE" value="4" />
+       </indentOptions>
+@@ -129,6 +115,9 @@
+           </section>
+         </rules>
+       </arrangement>
++    </codeStyleSettings>
++    <codeStyleSettings language="kotlin">
++      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+     </codeStyleSettings>
+   </code_scheme>
+ </component>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_about.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_about.xml b/app/src/main/res/layout/fragment_about.xml
+new file mode 100644
+--- /dev/null	(date 1693980323287)
++++ b/app/src/main/res/layout/fragment_about.xml	(date 1693980323287)
+@@ -0,0 +1,49 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="@color/colorPrimary">
++
++    <TextView
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="bottom|center"
++        android:padding="@dimen/dimen_common_small"
++        android:text="@string/app_designed_by"
++        android:textColor="@color/gray_very_light"
++        android:textSize="12sp" />
++
++    <androidx.appcompat.widget.Toolbar
++        android:id="@+id/toolbar_about"
++        android:layout_width="match_parent"
++        android:layout_height="?attr/actionBarSize"
++        android:theme="@style/AppTheme.AppBarOverlay"
++        app:popupTheme="@style/AppTheme.PopupOverlay" />
++
++    <ScrollView
++        android:id="@+id/scroll_about"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:layout_marginTop="?attr/actionBarSize">
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="vertical">
++
++            <include layout="@layout/card_about_1" />
++
++            <include layout="@layout/card_about_2" />
++
++        </LinearLayout>
++    </ScrollView>
++
++    <com.google.android.material.floatingactionbutton.FloatingActionButton
++        android:id="@+id/fab_about_share"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="bottom|end"
++        android:layout_margin="@dimen/fab_margin"
++        android:src="@drawable/ic_share_white_24dp" />
++</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/AboutFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/AboutFragment.kt b/app/src/main/java/com/eajy/materialdesign2/AboutFragment.kt
+new file mode 100644
+--- /dev/null	(date 1693980073481)
++++ b/app/src/main/java/com/eajy/materialdesign2/AboutFragment.kt	(date 1693980073481)
+@@ -0,0 +1,57 @@
++package com.eajy.materialdesign2
++
++import android.os.Bundle
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++
++// TODO: Rename parameter arguments, choose names that match
++// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++private const val ARG_PARAM1 = "param1"
++private const val ARG_PARAM2 = "param2"
++
++/**
++ * A simple [Fragment] subclass.
++ * Use the [AboutFragment.newInstance] factory method to
++ * create an instance of this fragment.
++ */
++class AboutFragment : Fragment() {
++    // TODO: Rename and change types of parameters
++    private var param1: String? = null
++    private var param2: String? = null
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        arguments?.let {
++            param1 = it.getString(ARG_PARAM1)
++            param2 = it.getString(ARG_PARAM2)
++        }
++    }
++
++    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
++                              savedInstanceState: Bundle?): View? {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_about, container, false)
++    }
++
++    companion object {
++        /**
++         * Use this factory method to create a new instance of
++         * this fragment using the provided parameters.
++         *
++         * @param param1 Parameter 1.
++         * @param param2 Parameter 2.
++         * @return A new instance of fragment AboutFragment.
++         */
++        // TODO: Rename and change types and number of parameters
++        @JvmStatic
++        fun newInstance(param1: String, param2: String) =
++                AboutFragment().apply {
++                    arguments = Bundle().apply {
++                        putString(ARG_PARAM1, param1)
++                        putString(ARG_PARAM2, param2)
++                    }
++                }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_settings.xml b/app/src/main/res/layout/fragment_settings.xml
+new file mode 100644
+--- /dev/null	(date 1693980073686)
++++ b/app/src/main/res/layout/fragment_settings.xml	(date 1693980073686)
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:id="@+id/content"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent" />
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/SettingsFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/SettingsFragment.kt b/app/src/main/java/com/eajy/materialdesign2/SettingsFragment.kt
+new file mode 100644
+--- /dev/null	(date 1693979843580)
++++ b/app/src/main/java/com/eajy/materialdesign2/SettingsFragment.kt	(date 1693979843580)
+@@ -0,0 +1,57 @@
++package com.eajy.materialdesign2
++
++import android.os.Bundle
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++
++// TODO: Rename parameter arguments, choose names that match
++// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++private const val ARG_PARAM1 = "param1"
++private const val ARG_PARAM2 = "param2"
++
++/**
++ * A simple [Fragment] subclass.
++ * Use the [SettingsFragment.newInstance] factory method to
++ * create an instance of this fragment.
++ */
++class SettingsFragment : Fragment() {
++    // TODO: Rename and change types of parameters
++    private var param1: String? = null
++    private var param2: String? = null
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        arguments?.let {
++            param1 = it.getString(ARG_PARAM1)
++            param2 = it.getString(ARG_PARAM2)
++        }
++    }
++
++    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
++                              savedInstanceState: Bundle?): View? {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_settings, container, false)
++    }
++
++    companion object {
++        /**
++         * Use this factory method to create a new instance of
++         * this fragment using the provided parameters.
++         *
++         * @param param1 Parameter 1.
++         * @param param2 Parameter 2.
++         * @return A new instance of fragment SettingsFragment.
++         */
++        // TODO: Rename and change types and number of parameters
++        @JvmStatic
++        fun newInstance(param1: String, param2: String) =
++                SettingsFragment().apply {
++                    arguments = Bundle().apply {
++                        putString(ARG_PARAM1, param1)
++                        putString(ARG_PARAM2, param2)
++                    }
++                }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/eajy/materialdesign2/DonationFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/eajy/materialdesign2/DonationFragment.kt b/app/src/main/java/com/eajy/materialdesign2/DonationFragment.kt
+new file mode 100644
+--- /dev/null	(date 1693980323115)
++++ b/app/src/main/java/com/eajy/materialdesign2/DonationFragment.kt	(date 1693980323115)
+@@ -0,0 +1,57 @@
++package com.eajy.materialdesign2
++
++import android.os.Bundle
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++
++// TODO: Rename parameter arguments, choose names that match
++// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++private const val ARG_PARAM1 = "param1"
++private const val ARG_PARAM2 = "param2"
++
++/**
++ * A simple [Fragment] subclass.
++ * Use the [DonationFragment.newInstance] factory method to
++ * create an instance of this fragment.
++ */
++class DonationFragment : Fragment() {
++    // TODO: Rename and change types of parameters
++    private var param1: String? = null
++    private var param2: String? = null
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        arguments?.let {
++            param1 = it.getString(ARG_PARAM1)
++            param2 = it.getString(ARG_PARAM2)
++        }
++    }
++
++    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
++                              savedInstanceState: Bundle?): View? {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_donation, container, false)
++    }
++
++    companion object {
++        /**
++         * Use this factory method to create a new instance of
++         * this fragment using the provided parameters.
++         *
++         * @param param1 Parameter 1.
++         * @param param2 Parameter 2.
++         * @return A new instance of fragment DonationFragment.
++         */
++        // TODO: Rename and change types and number of parameters
++        @JvmStatic
++        fun newInstance(param1: String, param2: String) =
++                DonationFragment().apply {
++                    arguments = Bundle().apply {
++                        putString(ARG_PARAM1, param1)
++                        putString(ARG_PARAM2, param2)
++                    }
++                }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_my_apps.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_my_apps.xml b/app/src/main/res/layout/fragment_my_apps.xml
+new file mode 100644
+--- /dev/null	(date 1693980761357)
++++ b/app/src/main/res/layout/fragment_my_apps.xml	(date 1693980761357)
+@@ -0,0 +1,39 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:fitsSystemWindows="true">
++
++    <com.google.android.material.appbar.AppBarLayout
++        android:layout_width="match_parent"
++        android:layout_height="@dimen/my_app_bar_height"
++        android:theme="@style/AppTheme.AppBarOverlay">
++
++        <com.google.android.material.appbar.CollapsingToolbarLayout
++            android:id="@+id/collapsing_toolbar_layout"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:fitsSystemWindows="true"
++            app:contentScrim="?attr/colorPrimary"
++            app:layout_scrollFlags="scroll|exitUntilCollapsed"
++            app:titleEnabled="false">
++
++            <androidx.appcompat.widget.Toolbar
++                android:id="@+id/toolbar_my_apps"
++                android:layout_width="match_parent"
++                android:layout_height="?attr/actionBarSize"
++                app:layout_collapseMode="pin"
++                app:popupTheme="@style/AppTheme.PopupOverlay" />
++        </com.google.android.material.appbar.CollapsingToolbarLayout>
++
++    </com.google.android.material.appbar.AppBarLayout>
++
++    <androidx.recyclerview.widget.RecyclerView
++        android:id="@+id/recycler_my_apps"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        app:behavior_overlapTop="@dimen/my_app_bar_overlap"
++        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
++
++</androidx.coordinatorlayout.widget.CoordinatorLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_donation.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_donation.xml b/app/src/main/res/layout/fragment_donation.xml
+new file mode 100644
+--- /dev/null	(date 1693980470218)
++++ b/app/src/main/res/layout/fragment_donation.xml	(date 1693980470218)
+@@ -0,0 +1,36 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:fitsSystemWindows="true">
++
++    <com.google.android.material.appbar.AppBarLayout
++        android:layout_width="match_parent"
++        android:layout_height="180dp"
++        android:theme="@style/AppTheme.AppBarOverlay">
++
++        <androidx.appcompat.widget.Toolbar
++            android:id="@+id/toolbar_donate"
++            android:layout_width="match_parent"
++            android:layout_height="?attr/actionBarSize"
++            app:popupTheme="@style/AppTheme.PopupOverlay" />
++
++        <TextView
++            android:id="@+id/tv_donate_title"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:layout_marginStart="72dp"
++            android:layout_marginTop="@dimen/dimen_common"
++            android:layout_marginEnd="@dimen/dimen_common"
++            android:layout_marginBottom="@dimen/dimen_common"
++            android:gravity="center_vertical"
++            android:lineSpacingExtra="8dp"
++            android:text="@string/donate_title"
++            android:textColor="@color/white"
++            android:textSize="16sp" />
++    </com.google.android.material.appbar.AppBarLayout>
++
++    <include layout="@layout/content_donate" />
++
++</androidx.coordinatorlayout.widget.CoordinatorLayout>
+\ No newline at end of file
