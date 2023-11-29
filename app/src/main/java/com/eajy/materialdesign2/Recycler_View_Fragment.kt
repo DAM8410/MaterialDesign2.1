@@ -9,7 +9,7 @@ import android.view.ViewGroup
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class SettingsFragment : Fragment() {
+class Recycler_View_Fragment : Fragment() {
 
     // Declare fragment-specific variables for parameters
     private var param1: String? = null
@@ -19,7 +19,7 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+        val view = inflater.inflate(R.layout.fragment_recycler_view, container, false)
 
 // Retrieve arguments here and assign them to your variables
         arguments?.let {
