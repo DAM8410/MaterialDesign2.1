@@ -21,8 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAppsAdapter extends RecyclerView.Adapter<MyAppsAdapter.MyAppsHolder> {
 
-    private final Context context;
-    private final List<MyAppsModel> items;
+    private Context context;
+    private List<MyAppsModel> items;
 
     public MyAppsAdapter(Context context, List<MyAppsModel> items) {
         this.context = context;
@@ -70,10 +70,9 @@ public class MyAppsAdapter extends RecyclerView.Adapter<MyAppsAdapter.MyAppsHold
 
     class MyAppsHolder extends RecyclerView.ViewHolder {
 
-        private final View mView;
-        private final ImageView image_app;
-        private final TextView tv_app_name;
-        private final TextView tv_app_description;
+        private View mView;
+        private ImageView image_app;
+        private TextView tv_app_name, tv_app_description;
 
         private MyAppsHolder(View itemView) {
             super(itemView);

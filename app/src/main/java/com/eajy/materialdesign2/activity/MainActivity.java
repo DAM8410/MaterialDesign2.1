@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         mViewPager.addOnPageChangeListener(pageChangeListener);
     }
 
-    private final ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -177,10 +177,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.fab_main) {
-            Snackbar.make(v, getString(R.string.main_snack_bar), Snackbar.LENGTH_LONG)
-                    .setAction(getString(R.string.main_snack_bar_action), view -> {
-                    }).show();
+        switch (v.getId()) {
+            case R.id.fab_main:
+                Snackbar.make(v, getString(R.string.main_snack_bar), Snackbar.LENGTH_LONG)
+                        .setAction(getString(R.string.main_snack_bar_action), view -> {
+                        }).show();
+                break;
         }
     }
 }

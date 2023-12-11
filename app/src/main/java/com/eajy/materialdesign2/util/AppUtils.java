@@ -46,7 +46,10 @@ public class AppUtils {
             if ((applicationInfo.flags & ApplicationInfo.FLAG_IS_GAME) == ApplicationInfo.FLAG_IS_GAME) {
                 return true;
             }
-            return Build.VERSION.SDK_INT >= 26 && applicationInfo.category == ApplicationInfo.CATEGORY_GAME;
+            if (Build.VERSION.SDK_INT >= 26 && applicationInfo.category == ApplicationInfo.CATEGORY_GAME) {
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
