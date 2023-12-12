@@ -22,8 +22,6 @@ class BottomNavigationFragment : Fragment() {
 
 // Retrieve arguments here and assign them to your variables
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
 
         return view // Return the inflated view

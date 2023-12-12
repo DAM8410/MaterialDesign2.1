@@ -27,7 +27,7 @@ public class App extends Application {
         mHandler = new Handler();
         mExecutor = AsyncTask.THREAD_POOL_EXECUTOR;
 
-        MobileAds.initialize(this, getString(R.string.admob_app_id));
+        MobileAds.initialize(this);
     }
 
     public void runOnUi(Runnable runnable) {
