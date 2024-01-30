@@ -1,5 +1,6 @@
 package com.eajy.materialdesign2;
 
+import com.android.billingclient.BuildConfig;
 import com.eajy.materialdesign2.view.MyAppsModel;
 
 import java.util.ArrayList;
