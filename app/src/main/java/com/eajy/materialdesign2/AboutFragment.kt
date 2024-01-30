@@ -14,10 +14,6 @@ class AboutFragment : Fragment() {
 // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_about, container, false)
 
-// Retrieve arguments here and assign them to your variables
-        arguments?.let {
-        }
-
         return view // Return the inflated view
     }
 

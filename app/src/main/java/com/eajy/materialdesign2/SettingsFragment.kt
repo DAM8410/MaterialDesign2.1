@@ -14,10 +14,6 @@ class SettingsFragment : Fragment() {
 // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
-// Retrieve arguments here and assign them to your variables
-        arguments?.let {
-        }
-
         return view // Return the inflated view
     }
 
